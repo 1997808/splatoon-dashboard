@@ -45,8 +45,8 @@ const options: ApexOptions = {
     },
   ],
   stroke: {
-    width: [2, 2],
-    curve: "straight",
+    width: 2,
+    curve: "smooth",
   },
   // labels: {
   //   show: false,
@@ -55,7 +55,7 @@ const options: ApexOptions = {
   grid: {
     xaxis: {
       lines: {
-        show: true,
+        show: false,
       },
     },
     yaxis: {
@@ -66,20 +66,6 @@ const options: ApexOptions = {
   },
   dataLabels: {
     enabled: false,
-  },
-  markers: {
-    size: 4,
-    colors: "#fff",
-    strokeColors: ["#3056D3", "#80CAEE"],
-    strokeWidth: 3,
-    strokeOpacity: 0.9,
-    strokeDashArray: 0,
-    fillOpacity: 1,
-    discrete: [],
-    hover: {
-      size: undefined,
-      sizeOffset: 5,
-    },
   },
   xaxis: {
     type: "category",

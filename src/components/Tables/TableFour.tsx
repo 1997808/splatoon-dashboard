@@ -37,8 +37,8 @@ const TableFour = () => {
         </h4>
       </div>
 
-      <div className="grid grid-cols-6 px-4 py-2 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5">
-        <div className="col-span-6 flex items-center">
+      <div className="grid grid-cols-6 px-4 py-2 dark:border-strokedark md:px-6 2xl:px-7.5">
+        <div className="col-span-4 flex items-center">
           <p className="font-medium">Browser</p>
         </div>
         <div className="col-span-1 flex justify-end items-center">
@@ -51,10 +51,10 @@ const TableFour = () => {
 
       {productData.map((product, key) => (
         <div
-          className="grid grid-cols-6 px-4 py-2 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5"
+          className="grid grid-cols-6 px-4 py-2 dark:border-strokedark md:px-6 2xl:px-7.5"
           key={key}
         >
-          <div className="col-span-6 flex items-center">
+          <div className="col-span-4 flex items-center">
             <div className="flex flex-col gap-4 w-full sm:flex-row sm:items-center">
               {/* <div className="h-12.5 w-15 rounded-sm">
                 <Image

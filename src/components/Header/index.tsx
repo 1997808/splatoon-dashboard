@@ -2,7 +2,7 @@ import Link from "next/link";
 import DarkModeSwitcher from "./DarkModeSwitcher";
 import DropdownNotification from "./DropdownNotification";
 import DropdownUser from "./DropdownUser";
-import Image from "next/image";
+import { TreePine } from "lucide-react";
 
 const Header = (props: {
   sidebarOpen: string | boolean | undefined;
@@ -51,19 +51,18 @@ const Header = (props: {
           {/* <!-- Hamburger Toggle BTN --> */}
 
           <Link className="block flex-shrink-0 lg:hidden" href="/">
-            <Image
-              width={32}
-              height={32}
-              src={"/images/logo/logo-icon.svg"}
-              alt="Logo"
-            />
+            <TreePine className="text-primary" />
           </Link>
         </div>
 
-        <div className="hidden sm:block">
+        <div className="hidden sm:flex gap-6">
+          <Link className="flex gap-1" href="/">
+            <TreePine className="text-primary" />
+            <h1 className="font-bold text-primary">PineStats</h1>
+          </Link>
         </div>
 
-        <div className="flex items-center gap-3 2xsm:gap-7">
+        <div className="flex items-center gap-3 2xsm:gap-4">
           <ul className="flex items-center gap-2 2xsm:gap-4">
             {/* <!-- Dark Mode Toggler --> */}
             <DarkModeSwitcher />
