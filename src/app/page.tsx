@@ -1,6 +1,6 @@
 import ECommerce from "@/components/Dashboard/E-commerce";
 import { Metadata } from "next";
-import ContainerLayout from "@/components/Layouts/ContainerLayout";
+import DefaultLayout from "@/components/Layouts/DefaultLayout";
 
 export const metadata: Metadata = {
   title: "PineStats",
@@ -10,9 +10,9 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <>
-      <ContainerLayout>
+      <DefaultLayout>
         <ECommerce />
-      </ContainerLayout>
+      </DefaultLayout>
     </>
   );
 }
