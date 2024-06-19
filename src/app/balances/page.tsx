@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
 import React from "react";
+import Balances from "@/components/Balances";
 
 export const metadata: Metadata = {
   title: "PineStats",
@@ -10,7 +11,7 @@ export const metadata: Metadata = {
 const BalancesPage: React.FC = () => {
   return (
     <DefaultLayout>
-      <div></div>
+      <Balances />
     </DefaultLayout>
   );
 };
