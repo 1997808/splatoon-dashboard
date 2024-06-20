@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "apexcharts": "^3.45.2",
+    "dayjs": "^1.11.11",
     "flatpickr": "^4.6.13",
     "jsvectormap": "^1.5.3",
     "lucide-react": "^0.379.0",
