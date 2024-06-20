@@ -11,7 +11,7 @@ export interface TotalCardProps {
 
 const TotalCard: (props: TotalCardProps) => ReactElement = ({ id, title, accountNumber, totalAmount }: TotalCardProps) => {
   return (
-    <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+    <div className="rounded-lg border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
       <div className="border-b border-stroke px-6 pt-6 pb-4 dark:border-strokedark">
         <h3 className="font-bold text-black dark:text-white text-sm">
           {title || "Credit Card"}
