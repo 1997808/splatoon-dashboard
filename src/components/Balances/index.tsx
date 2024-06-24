@@ -11,8 +11,8 @@ const Balances: React.FC = () => {
       accountNumber: `**** **** **** ${Math.floor(Math.random() * 10000)}`,
       totalAmount: `$ ${Math.floor(Math.random() * 5000)}`,
     });
-
   }
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
       {balances.map((balance) => (
