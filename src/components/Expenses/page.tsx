@@ -1,5 +1,5 @@
 "use client";
-import ChartTwo from "@/components/Expenses/ExpensesChart";
+import ExpensesChart from "@/components/Expenses/ExpensesChart";
 import React from "react";
 import ExpensesCard, { ExpensesCardProps } from "@/components/Expenses/ExpensesCard";
 
@@ -7,7 +7,7 @@ const Expenses: React.FC = () => {
   return (
     <>
       <div className="grid grid-cols-12 gap-4 md:gap-6 2xl:gap-7.5">
-        <ChartTwo />
+        <ExpensesChart />
         {demoData.map((data: ExpensesCardProps, key: number) => {
           return <ExpensesCard key={key} {...data} />;
         })}

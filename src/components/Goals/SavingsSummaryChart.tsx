@@ -81,13 +81,11 @@ const SavingsSummaryChart: React.FC = () => {
     series: [
       {
         name: "Last Year",
-        // create a demo value for each months in year so that the total sum = 21000
         data: [2000, 1500, 1000, 500, 2000, 1500, 1000, 500, 2000, 1500, 1000, 500]
       },
       {
         name: "This Year",
-        // create a demo value for first 6 months in year so that the total sum = 12500
-        data: [1823, 945, 467, 500, 3535, 245, 0, 0, 0, 0, 0, 0]
+        data: [1823, 945, 467, 500, 3535, 245]
       },
     ],
   });

@@ -36,7 +36,7 @@ const options: ApexOptions = {
 
 const ChartGauge: React.FC = () => {
   return (
-    <div>
+    <>
       <ReactApexChart
         options={options}
         series={[57]}
@@ -49,7 +49,7 @@ const ChartGauge: React.FC = () => {
           Target vs Achivement
         </h4>
       </div>
-    </div>
+    </>
   );
 };
 
