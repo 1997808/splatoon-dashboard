@@ -1,11 +1,12 @@
 "use client";
 import React from "react";
-import ChartOne from "../Charts/ChartOne";
-import TableFour from "../Tables/TableFour";
 import TotalCard from "@/components/Dashboard/TotalCard";
 import SavingCard from "@/components/Dashboard/SavingsCard";
 import UpcomingBillsTable from "@/components/Dashboard/UpcomingBill";
 import './embla.css'
+import TransactionsTable from "@/components/Dashboard/TransactionsTable";
+import ExpensesChart from "@/components/Dashboard/ExpensesChart";
+import ExpensesBreakdown from "@/components/Dashboard/ExpensesBreakdown";
 
 const Overview: React.FC = () => {
   let total = 0
@@ -33,12 +34,13 @@ const Overview: React.FC = () => {
       </div>
 
       <div className="mt-4 grid grid-cols-12 gap-4 md:mt-6 md:gap-6 2xl:mt-7.5 2xl:gap-7.5">
-        <ChartOne />
-        <div className="col-span-12 xl:col-span-6">
-          <TableFour />
+        <div className="col-span-12 xl:col-span-4">
+          <TransactionsTable />
         </div>
-        <div className="col-span-12 xl:col-span-6">
-          <TableFour />
+
+        <div className="col-span-12 xl:col-span-8 flex flex-col gap-4 md:gap-8">
+          <ExpensesChart />
+          <ExpensesBreakdown />
         </div>
       </div>
     </>

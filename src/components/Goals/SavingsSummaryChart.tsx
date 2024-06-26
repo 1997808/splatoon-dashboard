@@ -33,7 +33,7 @@ const options: ApexOptions = {
     bar: {
       horizontal: false,
       borderRadius: 4,
-      columnWidth: "70%",
+      columnWidth: "80%",
       borderRadiusApplication: 'end'
     },
   },
@@ -42,7 +42,7 @@ const options: ApexOptions = {
   },
   stroke: {
     show: true,
-    width: 4,
+    width: 1,
     colors: ["transparent"],
   },
   xaxis: {
@@ -98,14 +98,12 @@ const SavingsSummaryChart: React.FC = () => {
   handleReset;
 
   return (
-    <div className="relative rounded-lg border border-stroke bg-white p-7.5 shadow-default dark:border-strokedark dark:bg-boxdark">
-      <div className="absolute mb-4 justify-between gap-4 sm:flex">
-        <h4 className="text-sm font-semibold text-black dark:text-white">
-          Savings Summary
-        </h4>
-      </div>
+    <div className="relative rounded-lg border border-stroke bg-white p-6 shadow-default dark:border-strokedark dark:bg-boxdark">
+      <h4 className="md:absolute text-lg font-bold text-black dark:text-white">
+        Savings Summary
+      </h4>
 
-      <div id="SavingsSummaryChart" className="-mb-9 -ml-5">
+      <div id="SavingsSummaryChart" className="-mb-6 -ml-4">
         <ReactApexChart
           options={options}
           series={state.series}

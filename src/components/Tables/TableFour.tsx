@@ -30,7 +30,7 @@ const productData: Product[] = [
 
 const TableFour = () => {
   return (
-    <div className="h-full rounded-sm border pb-4 border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+    <div className="rounded-lg border pb-4 border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
       <div className="px-4 pt-6 pb-2 md:px-6 xl:px-7.5">
         <h4 className="text-xl font-semibold text-black dark:text-white">
           Devices
@@ -56,7 +56,7 @@ const TableFour = () => {
         >
           <div className="col-span-4 flex items-center">
             <div className="flex flex-col gap-4 w-full sm:flex-row sm:items-center">
-              {/* <div className="h-12.5 w-15 rounded-sm">
+              {/* <div className="h-12.5 w-15 rounded-lg">
                 <Image
                   src={product.image}
                   width={60}

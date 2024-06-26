@@ -15,7 +15,7 @@ const Profile = () => {
       <div className="mx-auto max-w-242.5">
         <Breadcrumb pageName="Profile" />
 
-        <div className="overflow-hidden rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+        <div className="overflow-hidden rounded-lg border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
           <div className="relative z-20 h-35 md:h-65">
             <Image
               src={"/images/cover/cover-01.png"}
@@ -118,7 +118,7 @@ const Profile = () => {
                 Danish Heilium
               </h3>
               <p className="font-medium">Ui/Ux Designer</p>
-              <div className="mx-auto mb-5.5 mt-4.5 grid max-w-94 grid-cols-3 rounded-sm border border-stroke py-2.5 shadow-1 dark:border-strokedark dark:bg-[#37404F]">
+              <div className="mx-auto mb-5.5 mt-4.5 grid max-w-94 grid-cols-3 rounded-lg border border-stroke py-2.5 shadow-1 dark:border-strokedark dark:bg-[#37404F]">
                 <div className="flex flex-col items-center justify-center gap-1 border-r border-stroke px-4 dark:border-strokedark xsm:flex-row">
                   <span className="font-semibold text-black dark:text-white">
                     259

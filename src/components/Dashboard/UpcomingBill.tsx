@@ -1,5 +1,4 @@
 import dayjs from "dayjs";
-import Image from "next/image";
 
 interface Bills {
   item: string;
@@ -44,7 +43,7 @@ const UpcomingBillsTable = () => {
             <p className="text-base font-bold">{transaction.item}</p>
             <p className="text-xs">Last Charge - {transaction.lastCharge}</p>
           </div>
-          <div className="col-span-1 flex justify-end items-center">
+          <div className="col-span-1 flex justify-end items-center font-bold">
             ${transaction.amount}
           </div>
         </div>

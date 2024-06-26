@@ -108,7 +108,7 @@ const ExpensesChart: React.FC = () => {
           options={options}
           series={state.series}
           type="bar"
-          height={300}
+          height={240}
           width={"100%"}
         />
       </div>

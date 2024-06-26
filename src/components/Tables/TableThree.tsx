@@ -29,7 +29,7 @@ const packageData: Package[] = [
 
 const TableThree = () => {
   return (
-    <div className="rounded-sm border border-stroke bg-white px-5 pb-2.5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
+    <div className="rounded-lg border border-stroke bg-white px-5 pb-2.5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
       <div className="max-w-full overflow-x-auto">
         <table className="w-full table-auto">
           <thead>
@@ -64,13 +64,12 @@ const TableThree = () => {
                 </td>
                 <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                   <p
-                    className={`inline-flex rounded-full bg-opacity-10 px-3 py-1 text-sm font-medium ${
-                      packageItem.status === "Paid"
+                    className={`inline-flex rounded-full bg-opacity-10 px-3 py-1 text-sm font-medium ${packageItem.status === "Paid"
                         ? "bg-success text-success"
                         : packageItem.status === "Unpaid"
                           ? "bg-danger text-danger"
                           : "bg-warning text-warning"
-                    }`}
+                      }`}
                   >
                     {packageItem.status}
                   </p>

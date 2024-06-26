@@ -8,13 +8,13 @@ const Goals: React.FC = () => {
   return (
     <>
       <div className="grid grid-cols-12 gap-4 md:gap-6 2xl:gap-7.5">
-        <div className="col-span-4 h-full">
+        <div className="col-span-12 md:col-span-4 h-full">
           <SavingCard
             target={"20000"}
             targetAchived={"12500"}
           />
         </div>
-        <div className="col-span-8 h-full">
+        <div className="col-span-12 md:col-span-8 h-full">
           <SavingsSummaryChart />
         </div>
         {demoData.map((data: GoalsCardProps, key: number) => {

@@ -63,17 +63,17 @@ const BillsDemoData: Bills[] = [
 const BillsTable = () => {
   return (
     <div className="rounded-lg border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark text-black dark:text-white p-6">
-      <div className="grid grid-cols-6 pb-5 font-bold">
+      <div className="grid grid-cols-4 md:grid-cols-6 pb-5 font-bold">
         <div className="col-span-1 flex justify-start items-center">
           Due date
         </div>
-        <div className="col-span-1 flex justify-start items-center">
+        <div className="col-span-1 hidden md:flex justify-start items-center">
           Logo
         </div>
         <div className="col-span-2 flex justify-start items-center">
           Description
         </div>
-        <div className="col-span-1 flex justify-center items-center">
+        <div className="col-span-1 hidden md:flex justify-center items-center">
           Last charge
         </div>
         <div className="col-span-1 flex justify-end items-center">
@@ -82,35 +82,56 @@ const BillsTable = () => {
       </div>
 
       {BillsDemoData.map((transaction, key) => (
-        <div
-          className="grid grid-cols-6 border-t border-stroke py-5 dark:border-strokedark text-sm"
-          key={key}
-        >
-          <div className="col-span-1 flex justify-start items-center">
-            <div className="flex flex-col px-4 py-2 bg-neutral-100 dark:bg-black justify-center items-center rounded">
-              <p className="text-neutral-500 dark:text-gray font-bold">{dayjs(transaction.dueDate).format("MMM")}</p>
-              <p className="text-xl font-bold">{dayjs(transaction.dueDate).format("DD")}</p>
+        <>
+          <div
+            className="hidden md:grid grid-cols-6 border-t border-stroke py-5 dark:border-strokedark text-sm"
+            key={key}
+          >
+            <div className="col-span-1 flex justify-start items-center">
+              <div className="flex flex-col px-4 py-2 bg-neutral-100 dark:bg-black justify-center items-center rounded">
+                <p className="text-neutral-500 dark:text-gray font-bold">{dayjs(transaction.dueDate).format("MMM")}</p>
+                <p className="text-xl font-bold">{dayjs(transaction.dueDate).format("DD")}</p>
+              </div>
+            </div>
+            <div className="col-span-1 flex justify-start items-center">
+              <Image
+                src={transaction.logo}
+                width={48}
+                height={48}
+                alt="Product"
+              />
+            </div>
+            <div className="col-span-2 flex flex-col justify-center items-start">
+              <p className="font-bold">{transaction.item}</p>
+              <p className="line-clamp-3">{transaction.description}</p>
+            </div>
+            <div className="col-span-1 flex justify-center items-center">
+              {transaction.lastCharge}
+            </div>
+            <div className="col-span-1 flex justify-end items-center">
+              ${transaction.amount}
             </div>
           </div>
-          <div className="col-span-1 flex justify-start items-center">
-            <Image
-              src={transaction.logo}
-              width={48}
-              height={48}
-              alt="Product"
-            />
+
+          <div
+            className="grid md:hidden grid-cols-4 border-t border-stroke py-6 dark:border-strokedark"
+            key={key}
+          >
+            <div className="col-span-1 flex justify-start items-center">
+              <div className="flex flex-col px-4 py-2 bg-neutral-100 dark:bg-black justify-center items-center rounded">
+                <p className="text-neutral-500 dark:text-gray font-bold">{dayjs(transaction.dueDate).format("MMM")}</p>
+                <p className="text-xl font-bold">{dayjs(transaction.dueDate).format("DD")}</p>
+              </div>
+            </div>
+            <div className="col-span-2 flex flex-col justify-center items-start gap-0.5">
+              <p className="text-base font-bold">{transaction.item}</p>
+              <p className="text-xs">Last Charge - {transaction.lastCharge}</p>
+            </div>
+            <div className="col-span-1 flex justify-end items-center font-bold">
+              ${transaction.amount}
+            </div>
           </div>
-          <div className="col-span-2 flex flex-col justify-center items-start">
-            <p className="font-bold">{transaction.item}</p>
-            <p className="line-clamp-3">{transaction.description}</p>
-          </div>
-          <div className="col-span-1 flex justify-center items-center">
-            {transaction.lastCharge}
-          </div>
-          <div className="col-span-1 flex justify-end items-center">
-            ${transaction.amount}
-          </div>
-        </div>
+        </>
       ))}
       <div className="flex justify-center py-6">
         <button
