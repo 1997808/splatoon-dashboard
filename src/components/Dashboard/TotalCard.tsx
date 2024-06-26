@@ -2,6 +2,7 @@ import React, { ReactElement } from "react";
 import { EmblaOptionsType } from 'embla-carousel'
 import Autoplay from 'embla-carousel-autoplay'
 import useEmblaCarousel from 'embla-carousel-react'
+import Link from "next/link";
 
 type PropType = {
   slides: AccountProps[]
@@ -29,7 +30,9 @@ const TotalCard: (props: TotalCardProps) => ReactElement = ({ title, data }: Tot
         <h3 className="font-bold text-black dark:text-white text-lg">
           {title || "N/A"}
         </h3>
-        <p className="text-black dark:text-white text-sm">All Balances</p>
+        <Link href="/balances">
+          <p className="text-black dark:text-white text-sm">All Balances</p>
+        </Link>
       </div>
       <div className="p-6 pt-4">
         <EmblaCarousel slides={data} options={OPTIONS} />

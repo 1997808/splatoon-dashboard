@@ -7,7 +7,7 @@ import SavingsSummaryChart from "@/components/Goals/SavingsSummaryChart";
 const Goals: React.FC = () => {
   return (
     <>
-      <div className="grid grid-cols-12 gap-4 md:gap-6 2xl:gap-7.5">
+      <div className="grid grid-cols-12 gap-4 md:gap-6">
         <div className="col-span-12 md:col-span-4 h-full">
           <SavingCard
             target={"20000"}

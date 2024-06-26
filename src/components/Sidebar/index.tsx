@@ -177,24 +177,26 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
           <div>
             <hr className="h-px m-4 bg-neutral-500 border-0" />
             <div className="flex justify-between items-center px-4 py-2 gap-3">
-              <div className="group relative flex items-center px-2 py-1 gap-3 rounded-lg font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 grow">
-                <Image
-                  src={"/images/user/user-06.png"}
-                  width={28}
-                  height={28}
-                  style={{
-                    width: "auto",
-                    height: "auto",
-                  }}
-                  alt="profile"
-                />
-                <div className="flex flex-col grow">
-                  <span className="text-white font-bold">John Doe</span>
-                  <span className="text-neutral-400 text-xs">View profile</span>
+              <Link href="/settings">
+                <div className="group relative flex items-center px-2 py-1 gap-3 rounded-lg font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 grow">
+                  <Image
+                    src={"/images/user/user-06.png"}
+                    width={28}
+                    height={28}
+                    style={{
+                      width: "auto",
+                      height: "auto",
+                    }}
+                    alt="profile"
+                  />
+                  <div className="flex flex-col grow">
+                    <span className="text-white font-bold">John Doe</span>
+                    <span className="text-neutral-400 text-xs">View profile</span>
+                  </div>
                 </div>
-              </div>
+              </Link>
               <div className="rounded-lg p-2 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4">
-                <Link href="auth/signin">
+                <Link href="/auth/signin">
                   <LogOut size={16} className="text-white" />
                 </Link>
               </div>

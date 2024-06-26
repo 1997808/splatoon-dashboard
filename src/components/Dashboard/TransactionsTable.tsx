@@ -1,5 +1,6 @@
 import { ShoppingCart } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 // create an interface for transactionsDemoData
 interface Transaction {
@@ -62,7 +63,9 @@ const TransactionsTable = () => {
         <h3 className="font-bold text-black dark:text-white text-lg">
           {"Recent transaction"}
         </h3>
-        <p className="text-black dark:text-white text-sm">View All</p>
+        <Link href="/transactions">
+          <p className="text-black dark:text-white text-sm">View All</p>
+        </Link>
       </div>
       {transactionsDemoData.map((transaction, key) => (
         <div
