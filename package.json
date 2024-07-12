@@ -9,11 +9,14 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@types/js-cookie": "^3.0.6",
     "apexcharts": "^3.45.2",
+    "axios": "^1.7.2",
     "dayjs": "^1.11.11",
     "embla-carousel-autoplay": "^8.1.5",
     "embla-carousel-react": "^8.1.5",
     "flatpickr": "^4.6.13",
+    "js-cookie": "^3.0.5",
     "jsvectormap": "^1.5.3",
     "lucide-react": "^0.379.0",
     "next": "14.1.0",

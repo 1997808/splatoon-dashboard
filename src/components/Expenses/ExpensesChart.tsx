@@ -57,12 +57,6 @@ const options: ApexOptions = {
     itemMargin: {
       horizontal: 16,
     },
-
-    markers: {
-      width: 16,
-      height: 8,
-      radius: 2,
-    },
   },
   fill: {
     opacity: 1,
