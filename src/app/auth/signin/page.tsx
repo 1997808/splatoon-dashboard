@@ -4,17 +4,32 @@ import Link from "next/link";
 import Image from "next/image";
 import BlankLayout from "@/components/Layouts/BlankLayout";
 import { Chrome, LockKeyhole, Mail } from "lucide-react";
-import { MyAxios } from "@/tools/api";
+import { MyAxios, updateToken } from "@/tools/api";
 import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form"
+import Cookies from "js-cookie";
+
+interface IFormInput {
+  email: string
+  password: string
+}
 
 const SignIn: React.FC = () => {
-  console.log('xdd')
   const router = useRouter()
-  const signInHandle = async (props: any) => {
-    console.log(props, '===============')
-    await MyAxios.post("/auth/login", { email: 'admin', password: 'xdd' })
-    // router.push('/')
-  }
+  const {
+    register,
+    setValue,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IFormInput>()
+  const onSubmit = handleSubmit(async (payload: any) => {
+    const { email, password } = payload
+    const res = await MyAxios.post("/auth/login", { email, password })
+    Cookies.set("token", res.data.data.access_token)
+    updateToken()
+    router.push("/")
+  })
+
   return (
     <BlankLayout>
       <div className="rounded-lg border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
@@ -52,13 +67,14 @@ const SignIn: React.FC = () => {
                 Sign In to PineStats
               </h2>
 
-              <form onSubmit={signInHandle}>
+              <form onSubmit={onSubmit}>
                 <div className="mb-4">
                   <label className="mb-2.5 block font-medium text-black dark:text-white">
                     Email
                   </label>
                   <div className="relative">
                     <input
+                      {...register("email", { required: true })}
                       type="email"
                       placeholder="Enter your email"
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
@@ -76,6 +92,7 @@ const SignIn: React.FC = () => {
                   </label>
                   <div className="relative">
                     <input
+                      {...register("password", { required: true })}
                       type="password"
                       placeholder="6+ Characters, 1 Capital letter"
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
