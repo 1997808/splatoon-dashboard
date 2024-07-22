@@ -1,9 +1,28 @@
 "use client"
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import TransactionsTable from "./Table";
+import { getAllTransactions } from "@/tools/transaction";
+import { useSearchParams } from 'next/navigation'
 
 const Transactions: React.FC = () => {
+  const searchParams = useSearchParams()
   const [currentTab, setCurrentTab] = useState(0);
+  const [transactions, setTransactions] = useState<any>([]);
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getAllTransactions()
+        setTransactions(data.data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    fetchData();
+  }, [])
+
 
   return (
     <>
@@ -22,7 +41,7 @@ const Transactions: React.FC = () => {
         </ul>
       </div>
 
-      <TransactionsTable />
+      <TransactionsTable data={transactions} />
     </>
   );
 };

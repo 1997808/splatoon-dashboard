@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import { ShoppingCart } from "lucide-react";
 
 // create an interface for transactionsDemoData
@@ -7,10 +8,10 @@ interface Transaction {
   item: string;
   amount: number;
   paymentMethod: number;
-  createdDate: string;
+  transactionDate: string;
 }
 
-const TransactionsTable = () => {
+const TransactionsTable = ({ data }: any) => {
   return (
     <div className="rounded-lg border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark text-black dark:text-white p-6">
       <div className="grid grid-cols-4 md:grid-cols-5 pb-5 font-bold">
@@ -34,7 +35,7 @@ const TransactionsTable = () => {
         </div>
       </div>
 
-      {transactionsDemoData.map((transaction, key) => (
+      {data.map((transaction: Transaction, key: number) => (
         <div
           className="hidden md:grid grid-cols-4 md:grid-cols-5 border-t border-stroke py-6 dark:border-strokedark text-sm"
           key={"md" + key}
@@ -46,7 +47,7 @@ const TransactionsTable = () => {
             {transaction.category}
           </div>
           <div className="col-span-1 flex justify-center items-center">
-            {transaction.createdDate}
+            {dayjs(transaction.transactionDate).format('DD-MM-YYYY HH:mm')}
           </div>
           <div className="col-span-1 hidden md:flex justify-center items-center">
             {transaction.paymentMethod}
@@ -57,7 +58,7 @@ const TransactionsTable = () => {
         </div>
       ))}
 
-      {transactionsDemoData.map((transaction, key) => (
+      {data.map((transaction: Transaction, key: number) => (
         <div
           className="grid md:hidden grid-cols-4 border-t border-stroke py-6 dark:border-strokedark text-sm"
           key={'sm' + key}
@@ -73,7 +74,7 @@ const TransactionsTable = () => {
           </div>
           <div className="col-span-1 flex flex-col justify-end items-end">
             <p className="font-bold">${transaction.amount}</p>
-            <p className="text-xs">{transaction.createdDate}</p>
+            <p className="text-xs">{dayjs(transaction.transactionDate).format('DD-MM-YYYY HH:mm')}</p>
           </div>
         </div>
       ))}
@@ -88,49 +89,5 @@ const TransactionsTable = () => {
     </div>
   );
 };
-
-// create an array of demo objects for transactionsDemoData with random shopName, category, item, amount, paymentMethod, and createdDate. add some item like shirt, pizza, movie ticket, a laptop and renting apartments
-const transactionsDemoData: Transaction[] = [
-  {
-    shopName: "Amazon",
-    category: "Shopping",
-    item: "Laptop",
-    amount: 2500,
-    paymentMethod: 1,
-    createdDate: "2021-05-01",
-  },
-  {
-    shopName: "Pizza Hut",
-    category: "Food",
-    item: "Pizza",
-    amount: 15,
-    paymentMethod: 2,
-    createdDate: "2021-05-02",
-  },
-  {
-    shopName: "Cineplex",
-    category: "Entertainment",
-    item: "Movie Ticket",
-    amount: 20,
-    paymentMethod: 3,
-    createdDate: "2021-05-03",
-  },
-  {
-    shopName: "Amazon",
-    category: "Shopping",
-    item: "Shirt",
-    amount: 30,
-    paymentMethod: 1,
-    createdDate: "2021-05-04",
-  },
-  {
-    shopName: "Renting Apartments",
-    category: "Housing",
-    item: "Rent",
-    amount: 1500,
-    paymentMethod: 4,
-    createdDate: "2021-05-05",
-  },
-];
 
 export default TransactionsTable;
