@@ -14,6 +14,11 @@ export const MyAxios = axios.create({
 MyAxios.interceptors.response.use(
   (res) => res,
   (err: any) => {
+    if (err?.response?.status === 401) {
+      Cookies.remove("token");
+      window.location.replace("auth/signin");
+      return;
+    }
     normalizeError(err.response?.data.message);
   },
 );
