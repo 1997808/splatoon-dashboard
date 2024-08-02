@@ -2,13 +2,10 @@
 import React, { useEffect, useState } from "react";
 import TransactionsTable from "./Table";
 import { getAllTransactions } from "@/tools/transaction";
-import { useSearchParams } from 'next/navigation'
 
 const Transactions: React.FC = () => {
-  const searchParams = useSearchParams()
   const [currentTab, setCurrentTab] = useState(0);
   const [transactions, setTransactions] = useState<any>([]);
-
 
   useEffect(() => {
     const fetchData = async () => {
@@ -22,7 +19,6 @@ const Transactions: React.FC = () => {
 
     fetchData();
   }, [])
-
 
   return (
     <>
