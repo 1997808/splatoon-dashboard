@@ -1,27 +1,33 @@
-import React from "react";
+"use client"
+import React, { useEffect, useState } from "react";
 import TotalCard from "./TotalCard";
+import { getAllBalances } from "@/tools/balance";
 
 const Balances: React.FC = () => {
-  const balances = []
-  // create a balances array random value for id accountNumber and totalAmount, title can be credit card or debit card or savings or checking
-  for (let i = 0; i < 7; i++) {
-    balances.push({
-      id: i,
-      title: ['Credit Card', 'Debit Card', 'Savings', 'Checking'][Math.floor(Math.random() * 4)],
-      accountNumber: `**** **** **** ${Math.floor(Math.random() * 10000)}`,
-      totalAmount: `$ ${Math.floor(Math.random() * 5000)}`,
-    });
-  }
+  const [balances, setBalances] = useState<any>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getAllBalances()
+        setBalances(data.data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    fetchData();
+  }, [])
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-      {balances.map((balance) => (
+      {balances.map((balance: any) => (
         <TotalCard
           key={balance.id}
           id={balance.id.toString()}
-          title={balance.title}
+          sourceName={balance.sourceName}
           accountNumber={balance.accountNumber}
-          totalAmount={balance.totalAmount}
+          balanceAmount={balance.balanceAmount}
         />
       ))}
     </div>

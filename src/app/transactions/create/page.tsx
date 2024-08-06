@@ -1,21 +1,21 @@
 import { Metadata } from "next";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
 import React from "react";
-import TransactionsAdd from "@/components/TransactionsAdd";
+import TransactionsCreate from "@/components/TransactionsCreate";
 
 export const metadata: Metadata = {
   title: "PineStats",
   description: "PineStats",
 };
 
-const TransactionAddPage: React.FC = () => {
+const TransactionsCreatePage: React.FC = () => {
   return (
     <DefaultLayout>
       <div className="w-full flex justify-center items-center">
-        <TransactionsAdd />
+        <TransactionsCreate />
       </div>
     </DefaultLayout>
   );
 };
 
-export default TransactionAddPage;
+export default TransactionsCreatePage;

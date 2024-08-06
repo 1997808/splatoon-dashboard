@@ -2,6 +2,8 @@
 import React, { useEffect, useState } from "react";
 import TransactionsTable from "./Table";
 import { getAllTransactions } from "@/tools/transaction";
+import { Button } from "@/components/ui/button"
+import Link from "next/link";
 
 const Transactions: React.FC = () => {
   const [currentTab, setCurrentTab] = useState(0);
@@ -22,7 +24,7 @@ const Transactions: React.FC = () => {
 
   return (
     <>
-      <div className="mb-4">
+      <div className="mb-4 flex justify-between">
         <ul className="flex flex-wrap text-sm font-medium text-center text-gray-500 dark:text-gray-400">
           {/* create a new tab list with 3 tabs: value are "All", "Expenses" and "Income", control the tab with the state currentTab  */}
           <li className="me-2">
@@ -35,6 +37,10 @@ const Transactions: React.FC = () => {
             <div className={`inline-block px-6 py-2 rounded ${currentTab === 2 ? `text-white bg-primary` : `text-black`} dark:text-white hover:opacity-90 cursor-pointer duration-300 ease-in-out`} onClick={() => setCurrentTab(2)}>Income</div>
           </li>
         </ul>
+
+        <Button asChild>
+          <Link href="/transactions/create">Create new transaction</Link>
+        </Button>
       </div>
 
       <TransactionsTable data={transactions} />

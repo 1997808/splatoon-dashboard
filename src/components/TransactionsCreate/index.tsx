@@ -51,7 +51,7 @@ const formSchema = z.object({
   transactionDate: z.date().optional(),
 })
 
-const TransactionsAdd: React.FC = () => {
+const TransactionsCreate: React.FC = () => {
   const [categories, setCategories] = useState<any>([]);
   const { toast } = useToast()
 
@@ -256,4 +256,4 @@ const TransactionsAdd: React.FC = () => {
   );
 };
 
-export default TransactionsAdd;
+export default TransactionsCreate;
