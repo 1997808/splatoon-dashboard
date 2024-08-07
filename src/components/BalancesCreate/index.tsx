@@ -30,7 +30,7 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { useToast } from "@/components/ui/use-toast"
-import { currencies } from "./currency";
+import { currencies } from "@/lib/currency";
 import { createBalances } from "@/tools/balance";
 
 const formSchema = z.object({
