@@ -1,5 +1,6 @@
 "use client"
 import React, { useEffect, useState } from "react";
+import { useParams } from 'next/navigation'
 import { z } from "zod"
 import { format } from "date-fns"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -39,7 +40,7 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { getCategories } from "@/tools/category";
-import { createBills } from "@/tools/bill";
+import { createBills, getBillById, updateBills } from "@/tools/bill";
 import { useToast } from "@/components/ui/use-toast"
 import { currencies } from "@/lib/currency";
 import { getAllBalances } from "@/tools/balance";
@@ -59,25 +60,11 @@ const formSchema = z.object({
   dueDate: z.date().optional(),
 })
 
-const BillsCreate: React.FC = () => {
+const BillsUpdate: React.FC = () => {
+  const { id }: any = useParams()
   const [categories, setCategories] = useState<any>([]);
   const [balances, setBalances] = useState<any>([]);
   const { toast } = useToast()
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await getCategories({})
-        const balance = await getAllBalances()
-        setCategories(data.data);
-        setBalances(balance.data);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-
-    fetchData();
-  }, [])
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
@@ -98,8 +85,41 @@ const BillsCreate: React.FC = () => {
     },
   })
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getCategories({})
+        const balance = await getAllBalances()
+        setCategories(data.data);
+        setBalances(balance.data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    const fetchBill = async () => {
+      try {
+        const data = await getBillById(id)
+        const bill = {
+          ...data.data,
+          balance: data.data.balance + '',
+          category: data.data.category + '',
+          dueDate: new Date(data.data.dueDate),
+        }
+        form.reset(bill)
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    fetchData().then(() => {
+      fetchBill();
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id])
+
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    const result = await createBills(values)
+    const result = await updateBills(id, values)
     if (!result) {
       return toast({
         title: "Error",
@@ -108,16 +128,7 @@ const BillsCreate: React.FC = () => {
     }
     toast({
       title: "Success",
-      description: "New bill created"
-    })
-    form.reset({
-      logo: "",
-      item: "",
-      type: "",
-      category: undefined,
-      amount: 0,
-      description: "",
-      dueDate: new Date(),
+      description: "Updated bill"
     })
   }
 
@@ -125,7 +136,7 @@ const BillsCreate: React.FC = () => {
     <>
       <Card className="max-w-[350px] xl:max-w-screen-md w-full">
         <CardHeader>
-          <CardTitle>Create new bill</CardTitle>
+          <CardTitle>Update bill</CardTitle>
           <CardDescription>How is your day?</CardDescription>
         </CardHeader>
         <CardContent>
@@ -321,7 +332,7 @@ const BillsCreate: React.FC = () => {
                       <Select onValueChange={field.onChange} defaultValue={field.value} value={field.value}>
                         <FormControl>
                           <SelectTrigger>
-                            {field.value ? <SelectValue placeholder="Active now?" /> : "Active now?"}
+                            {field.value ? <SelectValue placeholder="Select status" /> : "Select status"}
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
@@ -401,4 +412,4 @@ const BillsCreate: React.FC = () => {
   );
 };
 
-export default BillsCreate;
+export default BillsUpdate;

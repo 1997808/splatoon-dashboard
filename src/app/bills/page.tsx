@@ -2,6 +2,8 @@ import { Metadata } from "next";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
 import React from "react";
 import Bills from "@/components/Bills";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "PineStats",
@@ -11,6 +13,12 @@ export const metadata: Metadata = {
 const BillsPage: React.FC = () => {
   return (
     <DefaultLayout>
+      <div className="mb-4 flex justify-between">
+        <div></div>
+        <Button asChild>
+          <Link href="/bills/create">Create new bill</Link>
+        </Button>
+      </div>
       <Bills />
     </DefaultLayout>
   );
