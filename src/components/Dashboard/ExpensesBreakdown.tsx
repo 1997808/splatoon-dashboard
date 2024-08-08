@@ -9,7 +9,7 @@ export interface ExpensesCardProps {
 
 const ExpensesBreakdown = () => {
   return (
-    <div className="rounded-lg border pb-4 border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+    <div className="rounded-lg border pb-4 border-stroke bg-white shadow-lg dark:border-strokedark dark:bg-boxdark">
       <div className="px-6 pt-6 pb-2 md:px-6 flex justify-between items-center">
         <h4 className="text-lg font-semibold text-black dark:text-white">
           Expenses breakdown

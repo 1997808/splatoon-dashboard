@@ -98,7 +98,7 @@ const SavingsSummaryChart: React.FC = () => {
   handleReset;
 
   return (
-    <div className="relative rounded-lg border border-stroke bg-white p-6 shadow-default dark:border-strokedark dark:bg-boxdark">
+    <div className="relative rounded-lg border border-stroke bg-white p-6 shadow-lg dark:border-strokedark dark:bg-boxdark">
       <h4 className="md:absolute text-lg font-bold text-black dark:text-white">
         Savings Summary
       </h4>

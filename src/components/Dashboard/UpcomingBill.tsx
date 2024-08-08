@@ -27,7 +27,7 @@ const BillsDemoData: Bills[] = [
 
 const UpcomingBillsTable = () => {
   return (
-    <div className="rounded-lg border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark text-black dark:text-white px-6">
+    <div className="rounded-lg border border-stroke bg-white shadow-lg dark:border-strokedark dark:bg-boxdark text-black dark:text-white px-6">
       {BillsDemoData.map((transaction, key) => (
         <div
           className="grid grid-cols-4 border-b border-stroke py-6 dark:border-strokedark"

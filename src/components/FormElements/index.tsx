@@ -22,13 +22,13 @@ const FormElements = () => {
       <div className="grid grid-cols-1 gap-9 sm:grid-cols-2">
         <div className="flex flex-col gap-9">
           {/* <!-- Input Fields --> */}
-          <div className="rounded-lg border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-            <div className="border-b border-stroke px-6.5 py-4 dark:border-strokedark">
+          <div className="rounded-lg border border-stroke bg-white shadow-lg dark:border-strokedark dark:bg-boxdark">
+            <div className="border-b border-stroke px-6 py-4 dark:border-strokedark">
               <h3 className="font-medium text-black dark:text-white">
                 Input Fields
               </h3>
             </div>
-            <div className="flex flex-col gap-5.5 p-6.5">
+            <div className="flex flex-col gap-5 p-6">
               <div>
                 <label className="mb-3 block text-sm font-medium text-black dark:text-white">
                   Default Input
@@ -66,13 +66,13 @@ const FormElements = () => {
           </div>
 
           {/* <!-- Toggle switch input --> */}
-          <div className="rounded-lg border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-            <div className="border-b border-stroke px-6.5 py-4 dark:border-strokedark">
+          <div className="rounded-lg border border-stroke bg-white shadow-lg dark:border-strokedark dark:bg-boxdark">
+            <div className="border-b border-stroke px-6 py-4 dark:border-strokedark">
               <h3 className="font-medium text-black dark:text-white">
                 Toggle switch input
               </h3>
             </div>
-            <div className="flex flex-col gap-5.5 p-6.5">
+            <div className="flex flex-col gap-5 p-6">
               <SwitcherOne />
               <SwitcherTwo />
               <SwitcherThree />
@@ -81,26 +81,26 @@ const FormElements = () => {
           </div>
 
           {/* <!-- Time and date --> */}
-          <div className="rounded-lg border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-            <div className="border-b border-stroke px-6.5 py-4 dark:border-strokedark">
+          <div className="rounded-lg border border-stroke bg-white shadow-lg dark:border-strokedark dark:bg-boxdark">
+            <div className="border-b border-stroke px-6 py-4 dark:border-strokedark">
               <h3 className="font-medium text-black dark:text-white">
                 Time and date
               </h3>
             </div>
-            <div className="flex flex-col gap-5.5 p-6.5">
+            <div className="flex flex-col gap-5 p-6">
               <DatePickerOne />
               <DatePickerTwo />
             </div>
           </div>
 
           {/* <!-- File upload --> */}
-          <div className="rounded-lg border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-            <div className="border-b border-stroke px-6.5 py-4 dark:border-strokedark">
+          <div className="rounded-lg border border-stroke bg-white shadow-lg dark:border-strokedark dark:bg-boxdark">
+            <div className="border-b border-stroke px-6 py-4 dark:border-strokedark">
               <h3 className="font-medium text-black dark:text-white">
                 File upload
               </h3>
             </div>
-            <div className="flex flex-col gap-5.5 p-6.5">
+            <div className="flex flex-col gap-5 p-6">
               <div>
                 <label className="mb-3 block text-sm font-medium text-black dark:text-white">
                   Attach file
@@ -126,13 +126,13 @@ const FormElements = () => {
 
         <div className="flex flex-col gap-9">
           {/* <!-- Textarea Fields --> */}
-          <div className="rounded-lg border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-            <div className="border-b border-stroke px-6.5 py-4 dark:border-strokedark">
+          <div className="rounded-lg border border-stroke bg-white shadow-lg dark:border-strokedark dark:bg-boxdark">
+            <div className="border-b border-stroke px-6 py-4 dark:border-strokedark">
               <h3 className="font-medium text-black dark:text-white">
                 Textarea Fields
               </h3>
             </div>
-            <div className="flex flex-col gap-5.5 p-6.5">
+            <div className="flex flex-col gap-5 p-6">
               <div>
                 <label className="mb-3 block text-sm font-medium text-black dark:text-white">
                   Default textarea
@@ -170,13 +170,13 @@ const FormElements = () => {
           </div>
 
           {/* <!-- Checkbox and radio --> */}
-          <div className="rounded-lg border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-            <div className="border-b border-stroke px-6.5 py-4 dark:border-strokedark">
+          <div className="rounded-lg border border-stroke bg-white shadow-lg dark:border-strokedark dark:bg-boxdark">
+            <div className="border-b border-stroke px-6 py-4 dark:border-strokedark">
               <h3 className="font-medium text-black dark:text-white">
                 Checkbox and radio
               </h3>
             </div>
-            <div className="flex flex-col gap-5.5 p-6.5">
+            <div className="flex flex-col gap-5 p-6">
               <CheckboxOne />
               <CheckboxTwo />
               <CheckboxThree />
@@ -186,13 +186,13 @@ const FormElements = () => {
           </div>
 
           {/* <!-- Select input --> */}
-          <div className="rounded-lg border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-            <div className="border-b border-stroke px-6.5 py-4 dark:border-strokedark">
+          <div className="rounded-lg border border-stroke bg-white shadow-lg dark:border-strokedark dark:bg-boxdark">
+            <div className="border-b border-stroke px-6 py-4 dark:border-strokedark">
               <h3 className="font-medium text-black dark:text-white">
                 Select input
               </h3>
             </div>
-            <div className="flex flex-col gap-5.5 p-6.5">
+            <div className="flex flex-col gap-5 p-6">
               <SelectGroupTwo />
               <MultiSelect id="multiSelect" />
             </div>

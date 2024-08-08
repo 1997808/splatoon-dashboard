@@ -25,7 +25,7 @@ const TotalCard: (props: TotalCardProps) => ReactElement = ({ title, data }: Tot
   const OPTIONS: EmblaOptionsType = { loop: true }
 
   return (
-    <div className="rounded-lg border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+    <div className="rounded-lg border border-stroke bg-white shadow-lg dark:border-strokedark dark:bg-boxdark">
       <div className="border-b border-stroke px-6 pt-6 pb-4 dark:border-strokedark flex justify-between items-center">
         <h3 className="font-bold text-black dark:text-white text-lg">
           {title || "N/A"}

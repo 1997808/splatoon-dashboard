@@ -13,7 +13,7 @@ interface Transaction {
 
 const TransactionsTable = ({ data }: any) => {
   return (
-    <div className="rounded-lg border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark text-black dark:text-white p-6">
+    <div className="rounded-lg border border-stroke bg-white shadow-lg dark:border-strokedark dark:bg-boxdark text-black dark:text-white p-6">
       <div className="grid grid-cols-4 md:grid-cols-5 pb-5 font-bold">
         <div className="col-span-1 flex md:hidden justify-start items-center">
           Type

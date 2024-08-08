@@ -58,7 +58,7 @@ const transactionsDemoData: Transaction[] = [
 
 const TransactionsTable = () => {
   return (
-    <div className="rounded-lg border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark text-black dark:text-white p-6 pb-0">
+    <div className="rounded-lg border border-stroke bg-white shadow-lg dark:border-strokedark dark:bg-boxdark text-black dark:text-white p-6 pb-0">
       <div className="pb-4 flex justify-between items-center">
         <h3 className="font-bold text-black dark:text-white text-lg">
           {"Recent transaction"}
