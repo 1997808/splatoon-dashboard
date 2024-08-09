@@ -25,3 +25,7 @@ export const getCurrencyCode = () => {
 
   return currency;
 };
+
+export const formatMoney = (amount: number) => {
+  return new Intl.NumberFormat("de-DE").format(amount);
+};

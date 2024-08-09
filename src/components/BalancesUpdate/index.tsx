@@ -31,7 +31,8 @@ import {
 } from "@/components/ui/card"
 import { useToast } from "@/components/ui/use-toast"
 import { currencies } from "@/lib/currency";
-import { createBalances } from "@/tools/balance";
+import { getBalanceById, updateBalances } from "@/tools/balance";
+import { useParams } from "next/navigation";
 
 const formSchema = z.object({
   sourceName: z.string(),
@@ -41,8 +42,26 @@ const formSchema = z.object({
   description: z.string().optional(),
 })
 
-const BalancesCreate: React.FC = () => {
+const BalancesUpdate: React.FC = () => {
+  const { id }: any = useParams()
   const { toast } = useToast()
+
+  useEffect(() => {
+    const fetchBalance = async () => {
+      try {
+        const data = await getBalanceById(id)
+        const balance = {
+          ...data.data,
+        }
+        form.reset(balance)
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    fetchBalance();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id])
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
@@ -57,7 +76,7 @@ const BalancesCreate: React.FC = () => {
   })
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    const result = await createBalances(values)
+    const result = await updateBalances(id, values)
     if (!result) {
       return toast({
         title: "Error",
@@ -66,13 +85,7 @@ const BalancesCreate: React.FC = () => {
     }
     toast({
       title: "Success",
-      description: "New balance created"
-    })
-    form.reset({
-      sourceName: "",
-      balanceAmount: 0,
-      accountNumber: "",
-      description: "",
+      description: "Balance updated"
     })
   }
 
@@ -80,7 +93,7 @@ const BalancesCreate: React.FC = () => {
     <>
       <Card className="max-w-[350px] xl:max-w-screen-md w-full">
         <CardHeader>
-          <CardTitle>Create new balance</CardTitle>
+          <CardTitle>Update balance</CardTitle>
           <CardDescription>How is your day?</CardDescription>
         </CardHeader>
         <CardContent>
@@ -107,7 +120,7 @@ const BalancesCreate: React.FC = () => {
                   <FormItem>
                     <FormLabel>Account number (optional)</FormLabel>
                     <FormControl>
-                      <Input type="number" placeholder="Bank/Card last 4 digits" {...field} />
+                      <Input placeholder="Bank/Card last 4 digits" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -180,4 +193,4 @@ const BalancesCreate: React.FC = () => {
   );
 };
 
-export default BalancesCreate;
+export default BalancesUpdate;

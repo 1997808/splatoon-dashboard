@@ -1,5 +1,6 @@
 import dayjs from "dayjs";
 import { ShoppingCart } from "lucide-react";
+import { formatMoney } from "@/lib/utils";
 
 // create an interface for transactionsDemoData
 interface Transaction {
@@ -53,7 +54,7 @@ const TransactionsTable = ({ data }: any) => {
             {transaction.paymentMethod}
           </div>
           <div className="col-span-1 flex justify-end items-center">
-            ${transaction.amount}
+            {formatMoney(transaction.amount)}
           </div>
         </div>
       ))}

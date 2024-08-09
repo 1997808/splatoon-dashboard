@@ -3,6 +3,7 @@ import Image from "next/image";
 import { getAllBills } from "@/tools/bill";
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { formatMoney } from "@/lib/utils";
 
 const BillsTable = () => {
   const [bills, setBills] = useState<any>([]);
@@ -64,7 +65,7 @@ const BillsTable = () => {
               {bill?.balance?.sourceName}
             </div>
             <div className="col-span-1 flex justify-end items-center">
-              {bill.amount.toLocaleString('en-US', { style: 'currency', currency: bill.currency })}
+              {formatMoney(bill.amount)} {bill.currency}
             </div>
           </div>
         </Link>
@@ -83,7 +84,7 @@ const BillsTable = () => {
               <p className="text-xs">Balance used - {bill?.balance?.sourceName}</p>
             </div>
             <div className="col-span-1 flex justify-end items-center font-bold">
-              {bill.amount.toLocaleString('en-US', { style: 'currency', currency: bill.currency })}
+              {formatMoney(bill.amount)} {bill.currency}
             </div>
           </div>
         </Link>
