@@ -1,6 +1,9 @@
+'use client'
+
 import { ApexOptions } from "apexcharts";
 import React, { useState } from "react";
-import ReactApexChart from "react-apexcharts";
+import dynamic from "next/dynamic";
+const ReactApexChart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
 const options: ApexOptions = {
   colors: ["#80CAEE", "#3C50E0"],
@@ -59,8 +62,8 @@ const options: ApexOptions = {
     },
 
     markers: {
-      width: 16,
-      height: 8,
+      // width: 16,
+      // height: 8,
       radius: 2,
     },
   },

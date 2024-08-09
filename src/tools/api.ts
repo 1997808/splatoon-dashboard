@@ -1,5 +1,6 @@
 import axios from "axios";
 import Cookies from "js-cookie";
+import { redirect } from "next/navigation";
 
 const accessToken = Cookies.get("token");
 
@@ -16,7 +17,7 @@ MyAxios.interceptors.response.use(
   (err: any) => {
     if (err?.response?.status === 401) {
       Cookies.remove("token");
-      window.location.replace("/auth/signin");
+      redirect("/auth/signin");
       return;
     }
     normalizeError(err.response?.data.message);

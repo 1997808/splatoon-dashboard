@@ -10,7 +10,6 @@ export interface TotalCardProps {
 }
 
 const TotalCard: (props: TotalCardProps) => ReactElement = ({ id, sourceName, accountNumber, balanceAmount }: TotalCardProps) => {
-  console.log("TotalCardProps", { id, sourceName, accountNumber, balanceAmount });
   return (
     <div className="rounded-lg border border-stroke bg-white shadow-lg dark:border-strokedark dark:bg-boxdark">
       <div className="border-b border-stroke px-6 pt-6 pb-4 dark:border-strokedark">

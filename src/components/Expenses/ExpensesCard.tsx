@@ -41,7 +41,7 @@ const ExpensesCard: (props: any) => ReactElement = ({ category, changeAmount, to
       {data && data.map((expense: Expenses, key: number) => {
         const { item, amount, createdDate } = expense;
         return (
-          <div className="flex justify-between items-center px-6 py-4 border-t border-gray dark:border-graydark">
+          <div className="flex justify-between items-center px-6 py-4 border-t border-gray dark:border-graydark" key={key}>
             <h3 className="text-black dark:text-white font-bold">
               {item || "N/A"}
             </h3>

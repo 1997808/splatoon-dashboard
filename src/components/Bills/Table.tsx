@@ -39,62 +39,54 @@ const BillsTable = () => {
           Amount
         </div>
       </div>
-
       {bills.map((bill: any, key: number) => (
-        <>
-          <Link href={`/bills/${bill.id}`} key={key}>
-            <div
-              className="hidden md:grid grid-cols-6 border-t border-stroke py-5 dark:border-strokedark text-sm"
-              key={key}
-            >
-              <div className="col-span-1 flex justify-start items-center">
-                <div className="flex flex-col px-4 py-2 bg-neutral-100 dark:bg-black justify-center items-center rounded">
-                  <p className="text-neutral-500 dark:text-gray font-bold">{dayjs(bill.dueDate).format("MMM")}</p>
-                  <p className="text-xl font-bold">{dayjs(bill.dueDate).format("DD")}</p>
-                </div>
-              </div>
-              <div className="col-span-1 flex justify-start items-center">
-                <Image
-                  src={bill.logo}
-                  width={48}
-                  height={48}
-                  alt="Product"
-                />
-              </div>
-              <div className="col-span-2 flex flex-col justify-center items-start">
-                <p className="font-bold">{bill.item}</p>
-                <p className="line-clamp-3">{bill.description}</p>
-              </div>
-              <div className="col-span-1 flex justify-center items-center">
-                {bill?.balance?.sourceName}
-              </div>
-              <div className="col-span-1 flex justify-end items-center">
-                {bill.amount.toLocaleString('en-US', { style: 'currency', currency: bill.currency })}
+        <Link href={`/bills/${bill.id}`} key={`${key}-${bill.sourceName}`}>
+          <div className="hidden md:grid grid-cols-6 border-t border-stroke py-5 dark:border-strokedark text-sm">
+            <div className="col-span-1 flex justify-start items-center">
+              <div className="flex flex-col px-4 py-2 bg-neutral-100 dark:bg-black justify-center items-center rounded">
+                <p className="text-neutral-500 dark:text-gray font-bold">{dayjs(bill.dueDate).format("MMM")}</p>
+                <p className="text-xl font-bold">{dayjs(bill.dueDate).format("DD")}</p>
               </div>
             </div>
-          </Link>
-
-          <Link href={`/bills/${bill.id}`} key={'sm' + key}>
-            <div
-              className="grid md:hidden grid-cols-4 border-t border-stroke py-6 dark:border-strokedark"
-              key={key}
-            >
-              <div className="col-span-1 flex justify-start items-center">
-                <div className="flex flex-col px-4 py-2 bg-neutral-100 dark:bg-black justify-center items-center rounded">
-                  <p className="text-neutral-500 dark:text-gray font-bold">{dayjs(bill.dueDate).format("MMM")}</p>
-                  <p className="text-xl font-bold">{dayjs(bill.dueDate).format("DD")}</p>
-                </div>
-              </div>
-              <div className="col-span-2 flex flex-col justify-center items-start gap-0.5">
-                <p className="text-base font-bold">{bill.item}</p>
-                <p className="text-xs">Balance used - {bill?.balance?.sourceName}</p>
-              </div>
-              <div className="col-span-1 flex justify-end items-center font-bold">
-                {bill.amount.toLocaleString('en-US', { style: 'currency', currency: bill.currency })}
+            <div className="col-span-1 flex justify-start items-center">
+              <Image
+                src={bill.logo}
+                width={48}
+                height={48}
+                alt="Product"
+              />
+            </div>
+            <div className="col-span-2 flex flex-col justify-center items-start">
+              <p className="font-bold">{bill.item}</p>
+              <p className="line-clamp-3">{bill.description}</p>
+            </div>
+            <div className="col-span-1 flex justify-center items-center">
+              {bill?.balance?.sourceName}
+            </div>
+            <div className="col-span-1 flex justify-end items-center">
+              {bill.amount.toLocaleString('en-US', { style: 'currency', currency: bill.currency })}
+            </div>
+          </div>
+        </Link>
+      ))}
+      {bills.map((bill: any, key: number) => (
+        <Link href={`/bills/${bill.id}`} key={`sm-${key}-${bill.sourceName}`}>
+          <div className="grid md:hidden grid-cols-4 border-t border-stroke py-6 dark:border-strokedark">
+            <div className="col-span-1 flex justify-start items-center">
+              <div className="flex flex-col px-4 py-2 bg-neutral-100 dark:bg-black justify-center items-center rounded">
+                <p className="text-neutral-500 dark:text-gray font-bold">{dayjs(bill.dueDate).format("MMM")}</p>
+                <p className="text-xl font-bold">{dayjs(bill.dueDate).format("DD")}</p>
               </div>
             </div>
-          </Link>
-        </>
+            <div className="col-span-2 flex flex-col justify-center items-start gap-0.5">
+              <p className="text-base font-bold">{bill.item}</p>
+              <p className="text-xs">Balance used - {bill?.balance?.sourceName}</p>
+            </div>
+            <div className="col-span-1 flex justify-end items-center font-bold">
+              {bill.amount.toLocaleString('en-US', { style: 'currency', currency: bill.currency })}
+            </div>
+          </div>
+        </Link>
       ))}
       <div className="flex justify-center py-6">
         <button

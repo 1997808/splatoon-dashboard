@@ -1,6 +1,8 @@
+'use client'
 import { ApexOptions } from "apexcharts";
 import React from "react";
-import ReactApexChart from "react-apexcharts";
+import dynamic from "next/dynamic";
+const ReactApexChart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
 const options: ApexOptions = {
   chart: {
@@ -37,12 +39,14 @@ const options: ApexOptions = {
 const ChartGauge: React.FC = () => {
   return (
     <>
-      <ReactApexChart
-        options={options}
-        series={[57]}
-        type="radialBar"
-        height={200}
-      />
+      {(typeof window !== 'undefined') && (
+        <ReactApexChart
+          options={options}
+          series={[57]}
+          type="radialBar"
+          height={200}
+        />
+      )}
 
       <div className="flex items-center justify-center">
         <h4 className="text-xs font-semibold dark:text-white">
