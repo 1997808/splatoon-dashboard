@@ -28,7 +28,7 @@ const TransactionsTable = ({ data }: any) => {
           Date
         </div>
         <div className="col-span-1 hidden md:flex justify-center items-center">
-          Payment method
+          Balance used
         </div>
         <div className="col-span-1 flex justify-end items-center">
           Amount

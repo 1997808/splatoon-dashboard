@@ -39,12 +39,15 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { getCategories } from "@/tools/category";
-import { createTransactions } from "@/tools/transaction";
+import { getTransactionById, updateTransactions } from "@/tools/transaction";
 import { useToast } from "@/components/ui/use-toast"
+import { useParams } from "next/navigation";
+import { getAllBalances } from "@/tools/balance";
 
 const formSchema = z.object({
   type: z.string().optional(),
-  categoryId: z.coerce.number(),
+  category: z.coerce.number(),
+  balance: z.coerce.number(),
   amount: z.coerce.number().optional(),
   item: z.string().optional(),
   description: z.string().optional(),
@@ -52,28 +55,51 @@ const formSchema = z.object({
 })
 
 const TransactionsUpdate: React.FC = () => {
+  const { id }: any = useParams()
   const [categories, setCategories] = useState<any>([]);
+  const [balances, setBalances] = useState<any>([]);
   const { toast } = useToast()
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const data = await getCategories({})
+        const balance = await getAllBalances()
         setCategories(data.data);
+        setBalances(balance.data);
       } catch (error) {
         console.log(error);
       }
     }
 
-    fetchData();
-  }, [])
+    const fetchTransaction = async () => {
+      try {
+        const data = await getTransactionById(id)
+        const transaction = {
+          ...data.data,
+          balance: data.data.balance + '',
+          category: data.data.category + '',
+          transactionDate: new Date(data.data.transactionDate),
+        }
+        form.reset(transaction)
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    fetchData().then(() => {
+      fetchTransaction();
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id])
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       type: "",
-      categoryId: undefined,
+      category: undefined,
+      balance: undefined,
       amount: 0,
       item: "",
       description: "",
@@ -82,7 +108,7 @@ const TransactionsUpdate: React.FC = () => {
   })
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    const result = await createTransactions(values)
+    const result = await updateTransactions(id, values)
     if (!result) {
       return toast({
         title: "Error",
@@ -91,28 +117,20 @@ const TransactionsUpdate: React.FC = () => {
     }
     toast({
       title: "Success",
-      description: "Transaction created"
-    })
-    form.reset({
-      type: "",
-      categoryId: undefined,
-      amount: 0,
-      item: "",
-      description: "",
-      transactionDate: new Date(),
+      description: "Transaction updated"
     })
   }
 
   return (
     <>
-      <Card className="w-[350px]">
+      <Card className="max-w-[350px] xl:max-w-screen-md w-full">
         <CardHeader>
-          <CardTitle>Create new transaction</CardTitle>
+          <CardTitle>Update transaction</CardTitle>
           <CardDescription>How is your day?</CardDescription>
         </CardHeader>
         <CardContent>
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+            <form onSubmit={form.handleSubmit(onSubmit)} className="grid grid-cols-1 xl:grid-cols-2 gap-8">
               <FormField
                 control={form.control}
                 name="type"
@@ -138,7 +156,7 @@ const TransactionsUpdate: React.FC = () => {
               />
               <FormField
                 control={form.control}
-                name="categoryId"
+                name="category"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Category</FormLabel>
@@ -164,9 +182,63 @@ const TransactionsUpdate: React.FC = () => {
               />
               <FormField
                 control={form.control}
+                name="balance"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Balance</FormLabel>
+                    <Select onValueChange={field.onChange} defaultValue={field.value + ''} value={field.value + ''}>
+                      <FormControl>
+                        <SelectTrigger>
+                          {field.value ? <SelectValue placeholder="Select the balance" /> : "Select the balance"}
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectGroup className="overflow-y-auto max-h-[10rem]">
+                          {balances.map((balance: any) => (
+                            <SelectItem key={balance.id} value={balance.id + ''}>
+                              {balance.sourceName}
+                            </SelectItem>
+                          ))}
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="amount"
+                rules={{ required: "Amount is required" }}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Amount</FormLabel>
+                    <FormControl>
+                      <Input type="number" placeholder="Enter the amount" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="item"
+                rules={{ required: "Item is required" }}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Item</FormLabel>
+                    <FormControl>
+                      <Input placeholder="What the thing" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
                 name="transactionDate"
                 render={({ field }) => (
-                  <FormItem className="flex flex-col">
+                  <FormItem className="flex flex-col justify-end">
                     <FormLabel>Date</FormLabel>
                     <Popover>
                       <PopoverTrigger asChild>
@@ -202,37 +274,9 @@ const TransactionsUpdate: React.FC = () => {
               />
               <FormField
                 control={form.control}
-                name="amount"
-                rules={{ required: "Amount is required" }}
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Amount</FormLabel>
-                    <FormControl>
-                      <Input type="number" placeholder="Enter the amount" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="item"
-                rules={{ required: "Item is required" }}
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Item</FormLabel>
-                    <FormControl>
-                      <Input placeholder="What the thing" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
                 name="description"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className="col-span-1 xl:col-span-2">
                     <FormLabel>Description</FormLabel>
                     <FormControl>
                       <Textarea
@@ -245,7 +289,7 @@ const TransactionsUpdate: React.FC = () => {
                   </FormItem>
                 )}
               />
-              <div className="w-full flex justify-end pt-4">
+              <div className="col-span-1 xl:col-span-2 w-full flex justify-center">
                 <Button type="submit">Submit</Button>
               </div>
             </form>

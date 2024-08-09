@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
 import React from "react";
-import TransactionsCreate from "@/components/TransactionsCreate";
+import TransactionsUpdate from "@/components/TransactionsUpdate";
 
 export const metadata: Metadata = {
   title: "PineStats",
@@ -12,7 +12,7 @@ const TransactionsUpdatePage: React.FC = () => {
   return (
     <DefaultLayout>
       <div className="w-full flex justify-center items-center">
-        <TransactionsCreate />
+        <TransactionsUpdate />
       </div>
     </DefaultLayout>
   );

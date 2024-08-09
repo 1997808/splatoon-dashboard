@@ -78,14 +78,14 @@ const BalancesCreate: React.FC = () => {
 
   return (
     <>
-      <Card className="w-[350px]">
+      <Card className="max-w-[350px] xl:max-w-screen-md w-full">
         <CardHeader>
           <CardTitle>Create new balance</CardTitle>
           <CardDescription>How is your day?</CardDescription>
         </CardHeader>
         <CardContent>
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+            <form onSubmit={form.handleSubmit(onSubmit)} className="grid grid-cols-1 xl:grid-cols-2 gap-8">
               <FormField
                 control={form.control}
                 name="sourceName"
@@ -156,7 +156,7 @@ const BalancesCreate: React.FC = () => {
                 control={form.control}
                 name="description"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className="col-span-1 xl:col-span-2">
                     <FormLabel>Description</FormLabel>
                     <FormControl>
                       <Textarea
@@ -169,7 +169,7 @@ const BalancesCreate: React.FC = () => {
                   </FormItem>
                 )}
               />
-              <div className="w-full flex justify-end pt-4">
+              <div className="col-span-1 xl:col-span-2 w-full flex justify-center">
                 <Button type="submit">Submit</Button>
               </div>
             </form>

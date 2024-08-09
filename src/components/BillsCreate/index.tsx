@@ -390,7 +390,7 @@ const BillsCreate: React.FC = () => {
                   </FormItem>
                 )}
               />
-              <div className="col-span-1 xl:col-span-2 w-full flex justify-center pt-4">
+              <div className="col-span-1 xl:col-span-2 w-full flex justify-center">
                 <Button type="submit">Submit</Button>
               </div>
             </form>

@@ -12,3 +12,16 @@ export const formatUrl = (url: string, payload: Record<string, any>) => {
   }
   return `${url}?${params.toString()}`;
 };
+
+export const getCurrencyCode = () => {
+  // Get the user's locale from the browser
+  const userLocale = navigator.language || "en-US";
+
+  // Use Intl.NumberFormat to determine the currency for the user's locale
+  const currency = new Intl.NumberFormat(userLocale, {
+    style: "currency",
+    currency: "USD", // Fallback in case the locale does not provide a currency
+  }).resolvedOptions().currency;
+
+  return currency;
+};
