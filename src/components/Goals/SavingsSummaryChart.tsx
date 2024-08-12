@@ -6,10 +6,10 @@ import dynamic from "next/dynamic";
 const ReactApexChart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
 const options: ApexOptions = {
-  colors: ["#80CAEE", "#3C50E0"],
+  colors: ["#3C50E0"],
   chart: {
     fontFamily: "Satoshi, sans-serif",
-    type: "bar",
+    type: "area",
     height: 335,
     toolbar: {
       show: false,
@@ -19,34 +19,11 @@ const options: ApexOptions = {
     },
   },
 
-  responsive: [
-    {
-      breakpoint: 1536,
-      options: {
-        plotOptions: {
-          bar: {
-            borderRadius: 4,
-            columnWidth: "90%",
-          },
-        },
-      },
-    },
-  ],
-  plotOptions: {
-    bar: {
-      horizontal: false,
-      borderRadius: 4,
-      columnWidth: "90%",
-      borderRadiusApplication: 'end'
-    },
-  },
   dataLabels: {
     enabled: false,
   },
   stroke: {
-    show: true,
-    width: 1,
-    colors: ["transparent"],
+    curve: 'smooth'
   },
   xaxis: {
     categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
@@ -60,15 +37,6 @@ const options: ApexOptions = {
     itemMargin: {
       horizontal: 16,
     },
-
-    markers: {
-      // width: 16,
-      // height: 8,
-      radius: 2,
-    },
-  },
-  fill: {
-    opacity: 1,
   },
 };
 
@@ -83,12 +51,8 @@ const SavingsSummaryChart: React.FC = () => {
   const [state, setState] = useState<SavingsSummaryChartState>({
     series: [
       {
-        name: "Last Year",
-        data: [2000, 1500, 1000, 500, 2000, 1500, 1000, 500, 2000, 1500, 1000, 500]
-      },
-      {
         name: "This Year",
-        data: [1823, 945, 467, 500, 3535, 245]
+        data: [1000, 1200, 1500, 1500, 2000, 2500, 2000, 2500, 3000, 4500, 5000, 5600]
       },
     ],
   });
@@ -106,11 +70,11 @@ const SavingsSummaryChart: React.FC = () => {
         Savings Summary
       </h4>
 
-      <div id="SavingsSummaryChart" className="-mb-6 -ml-4">
+      <div id="SavingsSummaryChart" className="mt-6 -mb-6 -ml-4">
         <ReactApexChart
           options={options}
           series={state.series}
-          type="bar"
+          type="area"
           height={250}
           width={"100%"}
         />

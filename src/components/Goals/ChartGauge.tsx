@@ -2,34 +2,29 @@
 import { ApexOptions } from "apexcharts";
 import React from "react";
 import dynamic from "next/dynamic";
+import { useGoalContext } from ".";
 const ReactApexChart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
 const options: ApexOptions = {
   chart: {
     type: 'radialBar',
-    offsetY: -8,
-    sparkline: {
-      enabled: true
-    }
   },
   plotOptions: {
     radialBar: {
-      startAngle: -90,
-      endAngle: 90,
+      hollow: {
+        size: "50%"
+      },
       track: {
         background: "#e7e7e7",
         strokeWidth: '97%',
       },
       dataLabels: {
-        name: {
-          show: false
-        },
-        value: {
-          offsetY: -2,
-          fontSize: "14px"
-        }
+        show: false
       },
     }
+  },
+  stroke: {
+    lineCap: "round",
   },
   fill: {
     colors: ["#3C50E0"],
@@ -37,20 +32,22 @@ const options: ApexOptions = {
 };
 
 const ChartGauge: React.FC = () => {
+  const { budgetAmount = 1, totalExpenses = 0 } = useGoalContext();
+  const percentage = Math.floor(totalExpenses / budgetAmount)
+
   return (
     <>
-      {(typeof window !== 'undefined') && (
-        <ReactApexChart
-          options={options}
-          series={[57]}
-          type="radialBar"
-          height={200}
-        />
-      )}
+      <ReactApexChart
+        options={options}
+        type="radialBar"
+        series={[percentage]}
+        width={"100%"}
+        height={200}
+      />
 
       <div className="flex items-center justify-center">
         <h4 className="text-xs font-semibold dark:text-white">
-          Target vs Achivement
+          Budget spent {percentage}%
         </h4>
       </div>
     </>
