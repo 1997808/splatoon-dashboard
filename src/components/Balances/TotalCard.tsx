@@ -11,7 +11,7 @@ export interface DataProps {
   id: string;
   sourceName: string;
   accountNumber: string;
-  balanceAmount: string;
+  balanceAmount: number;
   currency: string;
   description: string;
 }
@@ -65,6 +65,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+import { formatMoney } from "@/lib/utils";
 
 const TotalCard: (props: TotalCardProps) => ReactElement = ({ data }: TotalCardProps) => {
   const { id, sourceName, accountNumber, balanceAmount, description, currency } = data
@@ -91,7 +92,7 @@ const TotalCard: (props: TotalCardProps) => ReactElement = ({ data }: TotalCardP
 
           <div className="flex flex-col">
             <p className="text-black dark:text-white font-bold text-xl">
-              {balanceAmount} {currency}
+              {formatMoney(balanceAmount)} {currency}
             </p>
             <p className="text-neutral-500 dark:text-gray text-sm">Current amount</p>
           </div>

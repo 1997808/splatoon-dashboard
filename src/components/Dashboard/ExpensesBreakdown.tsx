@@ -1,9 +1,10 @@
 import { ArrowDownRight, ArrowUpRight } from "lucide-react";
+import { formatMoney } from "@/lib/utils";
 
 export interface ExpensesCardProps {
   category: string;
   changeAmount: string;
-  totalAmount: string;
+  totalAmount: number;
   percent?: number;
 }
 
@@ -30,7 +31,7 @@ const ExpensesBreakdown = () => {
           </div>
           <div className="col-span-1 flex justify-end items-center">
             <p className="font-bold text-sm text-black dark:text-white">
-              ${item.totalAmount}
+              {formatMoney(item.totalAmount)}
             </p>
           </div>
           <div className="col-span-1 flex justify-end items-center">
@@ -52,39 +53,39 @@ const demoData: ExpensesCardProps[] = [
   {
     category: 'housing',
     changeAmount: '-10',
-    totalAmount: '5000',
+    totalAmount: 5000,
     percent: 33,
   },
   {
     category: 'food',
     changeAmount: '8',
-    totalAmount: '1000',
+    totalAmount: 1000,
     percent: 7,
   },
   {
     category: 'transportation',
     changeAmount: '20',
-    totalAmount: '1500',
+    totalAmount: 1500,
     percent: 10,
   },
   {
     category: 'entertainment',
     changeAmount: '-2',
-    totalAmount: '2000',
+    totalAmount: 2000,
     percent: 13,
   },
   {
     category: 'shopping',
     changeAmount: '20',
-    totalAmount: '2500',
+    totalAmount: 2500,
     percent: 17,
   },
   {
     category: 'others',
     changeAmount: '-19',
-    totalAmount: '3000',
+    totalAmount: 3000,
     percent: 20,
   },
-].sort((a, b) => parseInt(b.totalAmount) - parseInt(a.totalAmount));
+].sort((a, b) => b.totalAmount - a.totalAmount);
 
 export default ExpensesBreakdown;
