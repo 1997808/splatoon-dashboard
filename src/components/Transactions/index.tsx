@@ -13,7 +13,8 @@ const Transactions: React.FC = () => {
     const fetchData = async () => {
       try {
         const data = await getAllTransactions()
-        setTransactions(data.data);
+        // data.data has data and meta pagination
+        setTransactions(data.data.data);
       } catch (error) {
         console.log(error);
       }
