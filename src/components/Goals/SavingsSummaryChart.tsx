@@ -67,7 +67,7 @@ const SavingsSummaryChart: React.FC = () => {
   return (
     <div className="relative rounded-lg border border-stroke bg-white p-6 shadow-lg dark:border-strokedark dark:bg-boxdark">
       <h4 className="md:absolute text-lg font-bold text-black dark:text-white">
-        Savings Summary
+        Assets Summary
       </h4>
 
       <div id="SavingsSummaryChart" className="mt-6 -mb-6 -ml-4">

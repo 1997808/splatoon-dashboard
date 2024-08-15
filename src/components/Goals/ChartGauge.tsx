@@ -33,7 +33,7 @@ const options: ApexOptions = {
 
 const ChartGauge: React.FC = () => {
   const { budgetAmount = 1, totalExpenses = 0 } = useGoalContext();
-  const percentage = Math.floor(totalExpenses / budgetAmount)
+  const percentage = Math.floor(totalExpenses * 100 / budgetAmount)
 
   return (
     <>

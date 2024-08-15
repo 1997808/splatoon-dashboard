@@ -22,7 +22,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { toast } from "@/components/ui/use-toast"
 import { useGoalContext } from "."
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 const formSchema = z.object({
   budgetAmount: z.coerce.number(),
@@ -33,10 +33,13 @@ const BudgetDialogUpdate = () => {
   const { budgetId, budgetAmount } = useGoalContext()
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      budgetAmount
-    },
   })
+  useEffect(() => {
+    form.reset({
+      budgetAmount
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [budgetAmount])
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     const result = await updateBudgets(budgetId + '', values)
@@ -58,12 +61,12 @@ const BudgetDialogUpdate = () => {
       <DialogTrigger asChild>
         <Button variant="default">Adjust Budget <Pencil size={14} className="ml-2" /></Button>
       </DialogTrigger>
-      <DialogContent className="max-w-[350px]">
+      <DialogContent className="max-w-[350px]" onOpenAutoFocus={(e) => e.preventDefault()}>
         <DialogHeader>
           <DialogTitle>Edit budget this month</DialogTitle>
         </DialogHeader>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="grid grid-cols-1 gap-8">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="grid grid-cols-1 gap-4">
             <FormField
               control={form.control}
               name="budgetAmount"

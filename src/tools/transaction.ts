@@ -5,6 +5,11 @@ export const getAllTransactions = async () => {
   return result.data;
 };
 
+export const getMonthlyCategory = async () => {
+  const result = await MyAxios.get("/transactions/month-category");
+  return result.data;
+};
+
 export const getTransactionById = async (id: string) => {
   const result = await MyAxios.get(`/transactions/${id}`);
   return result.data;

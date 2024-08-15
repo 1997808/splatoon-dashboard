@@ -1,14 +1,29 @@
 "use client";
 import ExpensesChart from "@/components/Expenses/ExpensesChart";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ExpensesCard, { ExpensesCardProps } from "@/components/Expenses/ExpensesCard";
+import { getMonthlyCategory } from "@/tools/transaction";
 
 const Expenses: React.FC = () => {
+  const [overview, setOverview] = useState<any>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getMonthlyCategory()
+        setOverview(data.data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    fetchData();
+  }, [])
   return (
     <>
       <div className="grid grid-cols-12 gap-4 md:gap-6">
         <ExpensesChart />
-        {demoData.map((data: ExpensesCardProps, key: number) => {
+        {overview.map((data: ExpensesCardProps, key: number) => {
           return <ExpensesCard key={key} {...data} />;
         })}
       </div>
