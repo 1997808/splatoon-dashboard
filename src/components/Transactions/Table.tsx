@@ -1,6 +1,8 @@
 import dayjs from "dayjs";
 import { ShoppingCart } from "lucide-react";
 import { formatMoney } from "@/lib/utils";
+import TransactionPagination from "./Pagination";
+import { useTransactionContext } from ".";
 
 // create an interface for transactionsDemoData
 interface Transaction {
@@ -12,7 +14,9 @@ interface Transaction {
   transactionDate: string;
 }
 
-const TransactionsTable = ({ data }: any) => {
+const TransactionsTable = () => {
+  const { transactions: data } = useTransactionContext();
+
   return (
     <div className="rounded-lg border border-stroke bg-white shadow-lg dark:border-strokedark dark:bg-boxdark text-black dark:text-white p-6">
       <div className="grid grid-cols-4 md:grid-cols-5 pb-5 font-bold">
@@ -74,18 +78,13 @@ const TransactionsTable = ({ data }: any) => {
             <p className="text-xs">{transaction.category}</p>
           </div>
           <div className="col-span-1 flex flex-col justify-end items-end">
-            <p className="font-bold">${transaction.amount}</p>
+            <p className="font-bold">{formatMoney(transaction.amount)}</p>
             <p className="text-xs">{dayjs(transaction.transactionDate).format('DD-MM-YYYY HH:mm')}</p>
           </div>
         </div>
       ))}
       <div className="flex justify-center py-6">
-        <button
-          className="flex justify-center rounded bg-primary px-6 py-2 font-medium text-sm text-gray hover:bg-opacity-90"
-          type="submit"
-        >
-          Load more
-        </button>
+        <TransactionPagination />
       </div>
     </div>
   );

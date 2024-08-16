@@ -29,3 +29,20 @@ export const getCurrencyCode = () => {
 export const formatMoney = (amount: number) => {
   return new Intl.NumberFormat("de-DE").format(amount);
 };
+
+export const getParamsFilter = (data: any) => {
+  const obj = {
+    ...data,
+  };
+
+  Object.keys(obj).forEach((key) => {
+    if (obj[key] === null || obj[key] === undefined) {
+      delete obj[key];
+    }
+  });
+  let params = new URLSearchParams(obj).toString();
+  if (params !== "") {
+    params = "?" + params;
+  }
+  return params;
+};
