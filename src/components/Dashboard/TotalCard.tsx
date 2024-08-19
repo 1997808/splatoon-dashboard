@@ -3,6 +3,7 @@ import { EmblaOptionsType } from 'embla-carousel'
 import Autoplay from 'embla-carousel-autoplay'
 import useEmblaCarousel from 'embla-carousel-react'
 import Link from "next/link";
+import { formatMoney } from "@/lib/utils";
 
 type PropType = {
   slides: AccountProps[]
@@ -11,9 +12,9 @@ type PropType = {
 
 export interface AccountProps {
   id: string | number;
-  title: string;
+  sourceName: string;
   accountNumber: string;
-  totalAmount: string;
+  balanceAmount: string;
 }
 
 export interface TotalCardProps {
@@ -56,15 +57,17 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
               <div className="flex flex-col items-start bg-primary p-4 rounded-lg text-white">
                 <div className="flex flex-col">
                   <p className="text-sm opacity-80">Account type</p>
-                  <p className="font-bold">{data.title || "Credit Card"}</p>
+                  <p className="font-bold">{data.sourceName || "Credit Card"}</p>
                 </div>
 
                 <div className="flex justify-between items-end w-full">
-                  <p className="text-white text-sm opacity-80">
-                    {data.accountNumber || "**** **** **** 1234"}
-                  </p>
+                  {data.accountNumber && data.accountNumber !== 'null' ? (
+                    <p className="text-white text-sm opacity-80">
+                      {"**** **** **** " + data.accountNumber.slice(-4)}
+                    </p>
+                  ) : <p></p>}
                   <p className="text-white font-bold">
-                    {data.totalAmount || "$ 2500"}
+                    {formatMoney(parseInt(data.balanceAmount))}
                   </p>
                 </div>
               </div>

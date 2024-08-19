@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import TotalCard from "@/components/Dashboard/TotalCard";
 import SavingCard from "@/components/Dashboard/SavingsCard";
 import UpcomingBillsTable from "@/components/Dashboard/UpcomingBill";
@@ -7,26 +7,36 @@ import './embla.css'
 import TransactionsTable from "@/components/Dashboard/TransactionsTable";
 import ExpensesChart from "@/components/Dashboard/ExpensesChart";
 import ExpensesBreakdown from "@/components/Dashboard/ExpensesBreakdown";
+import { getAllBalances } from "@/tools/balance";
+import { formatMoney } from "@/lib/utils";
 
 const Overview: React.FC = () => {
-  let total = 0
-  const balances = []
-  for (let i = 0; i < 7; i++) {
-    const value = Math.floor(Math.random() * 5000)
-    total += value
-    balances.push({
-      id: i,
-      title: ['Credit Card', 'Debit Card', 'Savings', 'Checking'][Math.floor(Math.random() * 4)],
-      accountNumber: `**** **** **** ${Math.floor(Math.random() * 10000)}`,
-      totalAmount: `$${value}`,
-    });
-  }
+  const [balances, setBalances] = useState([])
+  const [total, setTotal] = useState(0)
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getAllBalances()
+        setBalances(data.data);
+        let tempTotal = 0
+        data.data.map((item: any) => {
+          tempTotal += item.balanceAmount
+        });
+        setTotal(tempTotal)
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    fetchData();
+  }, [])
+
 
   return (
     <>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-3">
         <TotalCard
-          title={`$${total}`}
+          title={`${formatMoney(total)}`}
           data={balances}
         />
         <SavingCard targetAchived={"12500"} target={"20000"} />
