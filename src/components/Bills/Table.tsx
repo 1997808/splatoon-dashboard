@@ -1,26 +1,9 @@
 import dayjs from "dayjs";
 import Image from "next/image";
-import { getAllBills } from "@/tools/bill";
-import { useState, useEffect } from "react";
 import Link from "next/link";
 import { formatMoney } from "@/lib/utils";
 
-const BillsTable = () => {
-  const [bills, setBills] = useState<any>([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await getAllBills()
-        setBills(data.data);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-
-    fetchData();
-  }, [])
-
+const BillsTable = ({ bills }: any) => {
   return (
     <div className="rounded-lg border border-stroke bg-white shadow-lg dark:border-strokedark dark:bg-boxdark text-black dark:text-white p-6">
       <div className="grid grid-cols-4 md:grid-cols-6 pb-5 font-bold">

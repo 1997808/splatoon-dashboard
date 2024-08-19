@@ -1,9 +1,10 @@
-import React, { ReactElement } from "react";
+import React from "react";
 import { EmblaOptionsType } from 'embla-carousel'
 import Autoplay from 'embla-carousel-autoplay'
 import useEmblaCarousel from 'embla-carousel-react'
 import Link from "next/link";
 import { formatMoney } from "@/lib/utils";
+import { useOverviewContext } from ".";
 
 type PropType = {
   slides: AccountProps[]
@@ -17,26 +18,23 @@ export interface AccountProps {
   balanceAmount: string;
 }
 
-export interface TotalCardProps {
-  title: string;
-  data: AccountProps[];
-}
+const TotalCard = () => {
+  const { balances, total } = useOverviewContext();
 
-const TotalCard: (props: TotalCardProps) => ReactElement = ({ title, data }: TotalCardProps) => {
   const OPTIONS: EmblaOptionsType = { loop: true }
 
   return (
     <div className="rounded-lg border border-stroke bg-white shadow-lg dark:border-strokedark dark:bg-boxdark">
       <div className="border-b border-stroke px-6 pt-6 pb-4 dark:border-strokedark flex justify-between items-center">
         <h3 className="font-bold text-black dark:text-white text-lg">
-          {title || "N/A"}
+          {formatMoney(total) || "N/A"}
         </h3>
         <Link href="/balances">
           <p className="text-black dark:text-white text-sm">All Balances</p>
         </Link>
       </div>
       <div className="p-6 pt-4">
-        <EmblaCarousel slides={data} options={OPTIONS} />
+        <EmblaCarousel slides={balances} options={OPTIONS} />
       </div>
     </div>
   );
