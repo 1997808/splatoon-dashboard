@@ -7,6 +7,11 @@ export const getAllTransactions = async (params: any) => {
   return result.data;
 };
 
+export const getMonthlySum = async () => {
+  const result = await MyAxios.get("/transactions/month-sum");
+  return result.data;
+};
+
 export const getMonthlyCategory = async () => {
   const result = await MyAxios.get("/transactions/month-category");
   return result.data;
