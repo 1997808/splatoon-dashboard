@@ -1,6 +1,6 @@
 "use client";
 import React, { createContext, useContext, useEffect, useState } from "react";
-import GoalsCard, { GoalsCardProps } from "@/components/Goals/GoalsCard";
+import { GoalsCardProps } from "@/components/Goals/GoalsCard";
 import BudgetCard from "@/components/Goals/BudgetCard";
 import SavingsSummaryChart from "@/components/Goals/SavingsSummaryChart";
 import { getBudget } from "@/tools/budget";
@@ -28,6 +28,7 @@ const Goals: React.FC = () => {
     fetchBudget()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
   return (
     <GoalContext.Provider value={{
       budgetId,

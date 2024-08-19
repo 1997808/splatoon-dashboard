@@ -1,21 +1,22 @@
 import React from "react";
 import ChartGauge from "./ChartGauge";
 import { formatMoney } from "@/lib/utils";
-import { useGoalContext } from ".";
-import BudgetDialogUpdate from "./BudgetDialogUpdate";
+import { useOverviewContext } from ".";
+import dayjs from "dayjs";
 
 const BudgetCard = () => {
-  const { budgetAmount, totalExpenses } = useGoalContext();
+  const { budgetAmount, totalExpenses } = useOverviewContext();
 
   return (
     <div className="rounded-lg border border-stroke bg-white shadow-lg dark:border-strokedark dark:bg-boxdark w-full h-full">
-      <div className="border-b border-stroke px-6 pt-6 pb-4 dark:border-strokedark">
+      <div className="border-b border-stroke px-6 pt-6 pb-4 dark:border-strokedark flex justify-between items-center">
         <h3 className="font-bold text-black dark:text-white text-sm">
           {"Budget overview"}
         </h3>
+        <p className="text-black dark:text-white text-sm">{dayjs().format("MMM-YYYY")}</p>
       </div>
       <div className="p-6 pt-4">
-        <div className="grid grid-cols-6 mb-6">
+        <div className="grid grid-cols-6">
           <div className="flex flex-col items-start gap-4 col-span-3">
             <div className="flex flex-col">
               <p className="text-neutral-600 dark:text-gray text-sm">Current</p>
@@ -34,10 +35,6 @@ const BudgetCard = () => {
           <div className="col-span-3">
             <ChartGauge />
           </div>
-        </div>
-
-        <div className="flex justify-center gap-4.5">
-          <BudgetDialogUpdate />
         </div>
       </div>
     </div>

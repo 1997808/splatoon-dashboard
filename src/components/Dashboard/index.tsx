@@ -1,7 +1,6 @@
 "use client";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import TotalCard from "@/components/Dashboard/TotalCard";
-import SavingCard from "@/components/Dashboard/SavingsCard";
 import UpcomingBillsTable from "@/components/Dashboard/UpcomingBill";
 import './embla.css'
 import TransactionsTable from "@/components/Dashboard/TransactionsTable";
@@ -9,21 +8,44 @@ import ExpensesChart from "@/components/Dashboard/ExpensesChart";
 import ExpensesBreakdown from "@/components/Dashboard/ExpensesBreakdown";
 import { getAllBalances } from "@/tools/balance";
 import { getAllBills } from "@/tools/bill";
+import { getBudget } from "@/tools/budget";
+import BudgetCard from "./BudgetCard";
 
 type ContextProps = {
   balances: any[];
-  total: number
-  bills: any[]
+  total: number;
+  bills: any[];
+  budgetAmount: number;
+  totalExpenses: number;
   filter?: any;
   setFilter?: React.Dispatch<React.SetStateAction<any>>;
 };
 
-const OverviewContext = createContext<ContextProps>({ balances: [], total: 0, bills: [] })
+const OverviewContext = createContext<ContextProps>({ balances: [], total: 0, bills: [], budgetAmount: 0, totalExpenses: 0 })
 
 const Overview: React.FC = () => {
   const [balances, setBalances] = useState([])
   const [bills, setBills] = useState([]);
-  const [total, setTotal] = useState(0)
+  const [total, setTotal] = useState(0);
+  const [budgetAmount, setBudgetAmount] = useState(0)
+  const [totalExpenses, setTotalExpenses] = useState(0)
+
+  useEffect(() => {
+    const fetchBudget = async () => {
+      try {
+        const data = await getBudget()
+        const result = data.data
+        setBudgetAmount(result?.budgetAmount)
+        setTotalExpenses(result?.totalExpenses)
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    fetchBudget()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -56,10 +78,10 @@ const Overview: React.FC = () => {
   }, [])
 
   return (
-    <OverviewContext.Provider value={{ balances, total, bills }}>
+    <OverviewContext.Provider value={{ balances, total, bills, budgetAmount, totalExpenses }}>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-3">
         <TotalCard />
-        <SavingCard targetAchived={"12500"} target={"20000"} />
+        <BudgetCard />
         <UpcomingBillsTable />
       </div>
 
