@@ -85,7 +85,7 @@ const ProfileUpdate: React.FC = () => {
 
   return (
     <>
-      <Card className="max-w-[350px] xl:max-w-screen-md w-full rounded-lg border border-stroke bg-white shadow-lg dark:border-strokedark dark:bg-boxdark">
+      <Card className="xl:max-w-screen-md w-full rounded-lg border border-stroke bg-white shadow-lg dark:border-strokedark dark:bg-boxdark">
         <CardHeader>
           <CardTitle>Update profile</CardTitle>
           <CardDescription>How is your day?</CardDescription>

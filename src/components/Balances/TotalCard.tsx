@@ -72,10 +72,8 @@ const TotalCard: (props: TotalCardProps) => ReactElement = ({ data }: TotalCardP
   return (
     <Card className="w-full flex flex-col rounded-lg border border-stroke bg-white shadow-lg dark:border-strokedark dark:bg-boxdark">
       <CardHeader>
-        <CardTitle>
-          <h3 className="font-bold text-black dark:text-white text-base">
-            {sourceName}
-          </h3>
+        <CardTitle className="font-bold text-black dark:text-white text-base">
+          {sourceName}
         </CardTitle>
         <CardDescription className="m-0 text-xs">{description}</CardDescription>
       </CardHeader>
