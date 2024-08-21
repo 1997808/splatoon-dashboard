@@ -19,6 +19,7 @@ const ExpensesPie: React.FC = () => {
   const options: ApexOptions = {
     chart: {
       type: 'pie',
+      foreColor: '#aaa',
       width: "100%",
       height: 240
     },

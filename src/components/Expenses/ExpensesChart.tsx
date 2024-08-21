@@ -10,6 +10,7 @@ const options: ApexOptions = {
   chart: {
     fontFamily: "Satoshi, sans-serif",
     type: "bar",
+    foreColor: '#aaa',
     height: 335,
     toolbar: {
       show: false,
