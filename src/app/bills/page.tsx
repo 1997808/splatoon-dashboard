@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
 import React from "react";
 import Bills from "@/components/Bills";
+import BillsTable from "@/components/Bills/page";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
@@ -19,7 +20,8 @@ const BillsPage: React.FC = () => {
           <Link href="/bills/create">Create new bill</Link>
         </Button>
       </div>
-      <Bills />
+      {/* <Bills /> */}
+      <BillsTable />
     </DefaultLayout>
   );
 };
