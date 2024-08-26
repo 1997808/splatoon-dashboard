@@ -1,7 +1,7 @@
 import { MyAxios } from "@/tools/api";
 import { getParamsFilter } from "@/lib/utils";
 
-export const getAllTransactions = async (params: any) => {
+export const getAllTransactions = async (params?: any) => {
   const requestParams = getParamsFilter(params);
   const result = await MyAxios.get(`/transactions${requestParams}`);
   return result.data;
