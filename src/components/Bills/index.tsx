@@ -1,6 +1,7 @@
 "use client"
 import React, { useEffect, useState } from "react";
-import BillsTable from "./Table";
+import { Payment, columns } from "./Column"
+import { DataTable } from "./DataTable"
 import { getAllBills } from "@/tools/bill";
 
 const Bills: React.FC = () => {
@@ -21,7 +22,7 @@ const Bills: React.FC = () => {
 
   return (
     <>
-      <BillsTable bills={bills} />
+      <DataTable columns={columns} data={bills} />
     </>
   );
 };
