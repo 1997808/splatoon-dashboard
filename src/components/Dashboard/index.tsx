@@ -5,7 +5,6 @@ import UpcomingBillsTable from "@/components/Dashboard/UpcomingBill";
 import './embla.css'
 import TransactionsTable from "@/components/Dashboard/TransactionsTable";
 import ExpensesPie from "@/components/Dashboard/ExpensesChart";
-import ExpensesBreakdown from "@/components/Dashboard/ExpensesBreakdown";
 import { getAllBalances } from "@/tools/balance";
 import { getAllBills } from "@/tools/bill";
 import { getBudget } from "@/tools/budget";
@@ -126,7 +125,6 @@ const Overview: React.FC = () => {
           {expenses.length > 0 && (
             <ExpensesPie />
           )}
-          {/* <ExpensesBreakdown /> */}
         </div>
       </div>
     </OverviewContext.Provider>

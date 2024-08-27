@@ -16,7 +16,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import { useTransactionContext } from "./page";
+import { useTransactionContext } from ".";
 import { DataTablePagination } from "./Pagination";
 
 interface DataTableProps<TData, TValue> {

@@ -14,7 +14,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { useTransactionContext } from "./page"
+import { useTransactionContext } from "."
 
 interface DataTablePaginationProps<TData> {
   table: Table<TData>

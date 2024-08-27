@@ -1,24 +1,26 @@
 "use client"
 import React, { createContext, useContext, useEffect, useState } from "react";
-import TransactionsTable from "./Table";
+import { columns } from "./Column"
+import { DataTable } from "./DataTable"
 import { getAllTransactions } from "@/tools/transaction";
-import { Button } from "@/components/ui/button"
+import { TableMeta } from "@/components/common/TableMeta";
+import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
 export type ContextProps = {
   transactions: any[];
-  meta: any
+  meta: TableMeta
   filter?: any;
   setFilter: React.Dispatch<React.SetStateAction<any>>;
 };
 
-const TransactionContext = createContext<ContextProps>({ transactions: [], meta: undefined, filter: {}, setFilter: () => { } })
+const TransactionContext = createContext<ContextProps>({ transactions: [], meta: { page: 1, take: 10 }, filter: {}, setFilter: () => { } })
 
 const Transactions: React.FC = () => {
   const [currentTab, setCurrentTab] = useState(0);
   const [transactions, setTransactions] = useState<any>([]);
-  const [meta, setMeta] = useState<any>(undefined);
-  const [filter, setFilter] = useState({})
+  const [meta, setMeta] = useState<TableMeta>({ page: 1, take: 10 })
+  const [filter, setFilter] = useState({ page: 1, take: 10, order: 'DESC' })
 
   useEffect(() => {
     const fetchData = async () => {
@@ -60,8 +62,7 @@ const Transactions: React.FC = () => {
           <Link href="/transactions/create">Create new transaction</Link>
         </Button>
       </div>
-
-      <TransactionsTable />
+      <DataTable columns={columns} data={transactions} />
     </TransactionContext.Provider>
   );
 };
