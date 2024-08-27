@@ -1,6 +1,9 @@
+'use client'
+
 import { ApexOptions } from "apexcharts";
 import React, { useState } from "react";
-import ReactApexChart from "react-apexcharts";
+import dynamic from "next/dynamic";
+const ReactApexChart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
 interface ChartThreeState {
   series: number[];
@@ -63,7 +66,7 @@ const ChartThree: React.FC = () => {
   handleReset;
 
   return (
-    <div className="col-span-12 rounded-sm border border-stroke bg-white px-5 pb-5 pt-7.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:col-span-5">
+    <div className="col-span-12 rounded-lg border border-stroke bg-white px-5 pb-5 pt-7 shadow-lg dark:border-strokedark dark:bg-boxdark sm:px-7 xl:col-span-4">
       <div className="mb-3 justify-between gap-4 sm:flex">
         <div>
           <h5 className="text-xl font-semibold text-black dark:text-white">
