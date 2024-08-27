@@ -1,12 +1,16 @@
+'use client'
+
 import { ApexOptions } from "apexcharts";
 import React, { useState } from "react";
-import ReactApexChart from "react-apexcharts";
+import dynamic from "next/dynamic";
+const ReactApexChart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
 const options: ApexOptions = {
   colors: ["#80CAEE", "#3C50E0"],
   chart: {
     fontFamily: "Satoshi, sans-serif",
     type: "bar",
+    foreColor: '#aaa',
     height: 335,
     toolbar: {
       show: false,
@@ -92,7 +96,7 @@ const ExpensesChart: React.FC = () => {
   handleReset;
 
   return (
-    <div className="relative col-span-12 rounded-lg border border-stroke bg-white p-6 shadow-default dark:border-strokedark dark:bg-boxdark">
+    <div className="relative col-span-12 rounded-lg border border-stroke bg-white p-6 shadow-lg dark:border-strokedark dark:bg-boxdark">
       <h4 className="md:absolute text-lg font-bold text-black dark:text-white">
         Expenses comparison
       </h4>

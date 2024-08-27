@@ -1,8 +1,10 @@
-import React, { ReactElement } from "react";
+import React from "react";
 import { EmblaOptionsType } from 'embla-carousel'
 import Autoplay from 'embla-carousel-autoplay'
 import useEmblaCarousel from 'embla-carousel-react'
 import Link from "next/link";
+import { formatMoney } from "@/lib/utils";
+import { useOverviewContext } from ".";
 
 type PropType = {
   slides: AccountProps[]
@@ -11,31 +13,28 @@ type PropType = {
 
 export interface AccountProps {
   id: string | number;
-  title: string;
+  sourceName: string;
   accountNumber: string;
-  totalAmount: string;
+  balanceAmount: string;
 }
 
-export interface TotalCardProps {
-  title: string;
-  data: AccountProps[];
-}
+const TotalCard = () => {
+  const { balances, total } = useOverviewContext();
 
-const TotalCard: (props: TotalCardProps) => ReactElement = ({ title, data }: TotalCardProps) => {
   const OPTIONS: EmblaOptionsType = { loop: true }
 
   return (
-    <div className="rounded-lg border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+    <div className="rounded-lg border border-stroke bg-white shadow-lg dark:border-strokedark dark:bg-boxdark">
       <div className="border-b border-stroke px-6 pt-6 pb-4 dark:border-strokedark flex justify-between items-center">
         <h3 className="font-bold text-black dark:text-white text-lg">
-          {title || "N/A"}
+          {formatMoney(total) || "N/A"}
         </h3>
         <Link href="/balances">
           <p className="text-black dark:text-white text-sm">All Balances</p>
         </Link>
       </div>
       <div className="p-6 pt-4">
-        <EmblaCarousel slides={data} options={OPTIONS} />
+        <EmblaCarousel slides={balances} options={OPTIONS} />
       </div>
     </div>
   );
@@ -56,15 +55,17 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
               <div className="flex flex-col items-start bg-primary p-4 rounded-lg text-white">
                 <div className="flex flex-col">
                   <p className="text-sm opacity-80">Account type</p>
-                  <p className="font-bold">{data.title || "Credit Card"}</p>
+                  <p className="font-bold">{data.sourceName || "Credit Card"}</p>
                 </div>
 
                 <div className="flex justify-between items-end w-full">
-                  <p className="text-white text-sm opacity-80">
-                    {data.accountNumber || "**** **** **** 1234"}
-                  </p>
+                  {data.accountNumber && data.accountNumber !== 'null' ? (
+                    <p className="text-white text-sm opacity-80">
+                      {"**** **** **** " + data.accountNumber.slice(-4)}
+                    </p>
+                  ) : <p></p>}
                   <p className="text-white font-bold">
-                    {data.totalAmount || "$ 2500"}
+                    {formatMoney(parseInt(data.balanceAmount))}
                   </p>
                 </div>
               </div>

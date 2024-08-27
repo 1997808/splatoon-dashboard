@@ -7,7 +7,7 @@ const Header = (props: {
   setSidebarOpen: (arg0: boolean) => void;
 }) => {
   return (
-    <header className="sticky top-0 z-999 flex w-full bg-white drop-shadow-1 dark:bg-boxdark dark:drop-shadow-none">
+    <header className="sticky top-0 z-40 flex w-full bg-white drop-shadow-md dark:bg-boxdark dark:drop-shadow-none">
       <div className="flex flex-grow items-center justify-between mx-auto max-w-screen-xl px-4 py-4 md:px-6 2xl:px-11">
         <div className="flex items-center gap-2 sm:gap-4 lg:hidden">
           {/* <!-- Hamburger Toggle BTN --> */}
@@ -17,7 +17,7 @@ const Header = (props: {
               e.stopPropagation();
               props.setSidebarOpen(!props.sidebarOpen);
             }}
-            className="z-99999 block rounded-lg border border-stroke bg-white p-1.5 shadow-sm dark:border-strokedark dark:bg-boxdark lg:hidden"
+            className="z-50 block rounded-lg border border-stroke bg-white p-1.5 shadow-sm dark:border-strokedark dark:bg-boxdark lg:hidden"
           >
             <Menu size={20} />
           </button>
@@ -27,15 +27,10 @@ const Header = (props: {
         <div className="hidden sm:flex gap-6">
         </div>
 
-        <div className="flex items-center gap-3 2xsm:gap-4">
-          <ul className="flex items-center gap-2 2xsm:gap-4">
-            {/* <!-- Dark Mode Toggler --> */}
+        <div className="flex items-center gap-4">
+          <ul className="flex items-center gap-4">
             <DarkModeSwitcher />
-            {/* <!-- Dark Mode Toggler --> */}
-
-            {/* <!-- Notification Menu Area --> */}
             <DropdownNotification />
-            {/* <!-- Notification Menu Area --> */}
           </ul>
         </div>
       </div>
