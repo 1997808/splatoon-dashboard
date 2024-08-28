@@ -17,9 +17,6 @@ RUN yarn build
 # Stage 2: Serve the built application using a lightweight Node.js image
 FROM node:20.14.0-alpine3.19
 
-# Set environment to production
-ENV NODE_ENV=production
-
 # Set working directory
 WORKDIR /app
 
@@ -27,10 +24,7 @@ WORKDIR /app
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/package.json ./
-COPY --from=builder /app/yarn.lock ./
-
-# Install only production dependencies
-RUN yarn install --production --frozen-lockfile
+COPY --from=builder /app/node_modules ./node_modules
 
 # Expose the port the app runs on
 EXPOSE 3000
