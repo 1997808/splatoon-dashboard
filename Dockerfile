@@ -1,34 +1,20 @@
-# Use the official Node.js image as the base
-FROM node:20.14.0-alpine3.19 as builder
-
-# Set the working directory inside the container
+FROM node:20.14.0-alpine3.19 AS base
 WORKDIR /app
-
-# Copy package.json and package-lock.json to the container
 COPY package.json yarn.lock ./
-RUN yarn install --production --frozen-lockfile
 
-# Copy the app source code to the container
+RUN yarn install --frozen-lockfile
+
 COPY . .
-
-# Build the Next.js app
 RUN yarn build
 
-# Stage 2: Serve the built application using a lightweight Node.js image
-FROM node:20.14.0-alpine3.19
-
-# Set working directory
+FROM node:20.14.0-alpine3.19 as release
 WORKDIR /app
 
-# Copy the build output from the builder stage
-COPY --from=builder /app/.next ./.next
-COPY --from=builder /app/public ./public
-COPY --from=builder /app/package.json ./
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/yarn.lock ./
+COPY --from=base /app/node_modules ./node_modules
+COPY --from=base /app/package.json ./package.json
+COPY --from=base /app/.next ./.next
+COPY --from=base /app/public ./public
 
-# Expose the port the app runs on
 EXPOSE 3000
 
-# Command to run the Next.js application
 CMD ["yarn", "start"]

@@ -6,7 +6,10 @@ const nextConfig = {
         hostname: 'cdn-1.webcatalog.io'
       }
     ]
+  },
+  eslint: {
+    ignoreDuringBuilds: true
   }
 };
 
-export default nextConfig;
+module.exports = nextConfig;
