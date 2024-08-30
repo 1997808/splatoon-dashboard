@@ -1,3 +1,4 @@
+"use client";
 import axios from "axios";
 import Cookies from "js-cookie";
 
@@ -11,6 +12,7 @@ if (typeof window !== "undefined") {
       ? process.env.NEXT_PUBLIC_BASE_URL + "/"
       : `${window.location.origin}/api`;
 }
+console.log(baseURL, "============");
 
 export const MyAxios = axios.create({
   baseURL: baseURL,
