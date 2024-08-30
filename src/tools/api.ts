@@ -3,8 +3,15 @@ import Cookies from "js-cookie";
 
 const accessToken = Cookies.get("token");
 
+const APP_ENV = process.env.NEXT_PUBLIC_APP_ENV || "DEV";
+
+let baseURL =
+  APP_ENV === "DEV"
+    ? process.env.NEXT_PUBLIC_BASE_URL + "/"
+    : `${window.location.origin}/api`;
+
 export const MyAxios = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_BASE_URL,
+  baseURL: baseURL,
   withCredentials: false,
   headers: {
     Authorization: `Bearer ${accessToken}`,
