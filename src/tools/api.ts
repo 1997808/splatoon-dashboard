@@ -1,18 +1,9 @@
 "use client";
 import axios from "axios";
 import Cookies from "js-cookie";
-
 const accessToken = Cookies.get("token");
 
-const APP_ENV = process.env.NEXT_PUBLIC_APP_ENV || "DEV";
-let baseURL;
-if (typeof window !== "undefined") {
-  baseURL =
-    APP_ENV === "DEV"
-      ? process.env.NEXT_PUBLIC_BASE_URL + "/"
-      : `${window.location.origin}/api`;
-}
-console.log(baseURL, "============");
+let baseURL = process.env.NEXT_PUBLIC_BASE_URL;
 
 export const MyAxios = axios.create({
   baseURL: baseURL,
