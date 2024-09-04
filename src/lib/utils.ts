@@ -26,8 +26,18 @@ export const getCurrencyCode = () => {
   return currency;
 };
 
-export const formatMoney = (amount: number) => {
+export const formatMoney = (amount: any) => {
   return new Intl.NumberFormat("de-DE").format(amount);
+};
+
+export const revertFormattedMoney = (formattedAmount: string): any => {
+  // Remove all non-numeric characters except the decimal separator (if any)
+  const cleanedAmount = formattedAmount
+    .replace(/[^\d,-]/g, "")
+    .replace(",", ".");
+
+  // Parse the cleaned string into a number
+  return cleanedAmount || "0";
 };
 
 export const getParamsFilter = (data: any) => {

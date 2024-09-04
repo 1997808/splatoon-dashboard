@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowLeft, ArrowRightFromLine, ArrowRightLeft, Crosshair, LayoutGrid, LogOut, ReceiptJapaneseYen, Settings, Wallet } from "lucide-react";
+import { ArrowLeft, ArrowRightFromLine, ArrowRightLeft, Crosshair, LayoutGrid, LogOut, ReceiptJapaneseYen, Settings, Wallet, SquareBottomDashedScissors } from "lucide-react";
 
 interface SidebarProps {
   sidebarOpen: boolean;
@@ -154,6 +154,17 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               >
                 <Crosshair size={20} />
                 Goal
+              </Link>
+            </li>
+
+            <li>
+              <Link
+                href="/taxes"
+                className={`group relative flex items-center gap-2.5 rounded-lg px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes("tax") && "bg-graydark dark:bg-meta-4"
+                  }`}
+              >
+                <SquareBottomDashedScissors size={20} />
+                Tax
               </Link>
             </li>
 
