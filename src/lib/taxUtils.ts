@@ -1,3 +1,5 @@
+import { formatMoney } from "./utils";
+
 interface TaxPayload {
   incomeType: string;
   income: string;
@@ -105,14 +107,19 @@ export const calculateTax = (payload: TaxPayload) => {
       unemployedInsurance;
   }
 
+  const comment = ` Tax & Insurance Percentage Breakdown:
+    The personal income tax represents approximately ${Math.floor((personalIncomeTax / grossSalary) * 10000) / 100}% of the gross salary. With total deductions accounting for around ${Math.floor(((socialInsurance + healthInsurance + unemployedInsurance + personalIncomeTax) / grossSalary) * 10000) / 100}% of their gross salary, leading to a final net salary of ${formatMoney(netSalary)}
+  `;
+
   const result = {
     grossSalary,
-    socialInsurance,
-    healthInsurance,
-    unemployedInsurance,
+    socialInsurance: -socialInsurance,
+    healthInsurance: -healthInsurance,
+    unemployedInsurance: -unemployedInsurance,
     taxDeductions,
-    personalIncomeTax,
+    personalIncomeTax: -personalIncomeTax,
     netSalary,
+    comment,
   };
   return result;
 };

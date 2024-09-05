@@ -12,11 +12,12 @@ export type ContextProps = {
     taxDeductions: any,
     personalIncomeTax: any
     netSalary: any,
+    comment?: string
   }
   setTaxesResult: React.Dispatch<React.SetStateAction<any>>
 };
 
-const TaxesContext = createContext<ContextProps>({ taxesResult: { grossSalary: 0, socialInsurance: 0, healthInsurance: 0, unemployedInsurance: 0, taxDeductions: 0, personalIncomeTax: 0, netSalary: 0 }, setTaxesResult: () => { } })
+const TaxesContext = createContext<ContextProps>({ taxesResult: { grossSalary: 0, socialInsurance: 0, healthInsurance: 0, unemployedInsurance: 0, taxDeductions: 0, personalIncomeTax: 0, netSalary: 0, comment: "" }, setTaxesResult: () => { } })
 
 const Taxes: React.FC = () => {
   const [taxesResult, setTaxesResult] = useState({
@@ -26,13 +27,14 @@ const Taxes: React.FC = () => {
     unemployedInsurance: 0,
     taxDeductions: 0,
     personalIncomeTax: 0,
-    netSalary: 0
+    netSalary: 0,
+    comment: ""
   })
 
   return (
     <TaxesContext.Provider value={{ taxesResult, setTaxesResult }}>
-      <div className="grid grid-cols-3 gap-8">
-        <div className="col-span-2">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <div className="col-span-1">
           <VNTaxForm />
         </div>
         <TaxResult />

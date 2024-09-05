@@ -1,5 +1,5 @@
 "use client"
-import React, { useEffect } from "react";
+import React from "react";
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
@@ -33,7 +33,7 @@ const taxCalculatorSchema = z.object({
   income: z.string(),  // Total income before deductions
   personalDeduction: z.string(),  // Personal deduction (default or customizable)
   dependentDeduction: z.string(),  // Deduction per dependent (if applicable)
-  numDependents: z.number().min(0),  // Number of dependents
+  numDependents: z.coerce.number().min(0),  // Number of dependents
   insuranceContributions: z.string(),  // Total insurance contributions (if applicable)
   otherDeductions: z.string().optional(),  // Any other deductions (e.g., charitable donations, work-related expenses)
   taxYear: z.string().optional(),  // Tax year (optional for reference)
@@ -65,10 +65,10 @@ const VNTaxForm: React.FC = () => {
   const onSubmit = async (values: z.infer<typeof taxCalculatorSchema>) => {
     const result = calculateTax(values)
     setTaxesResult(result)
-    toast({
-      title: "Success",
-      description: "Profile updated"
-    })
+    // toast({
+    //   title: "Success",
+    //   description: "Profile updated"
+    // })
   }
 
   return (
