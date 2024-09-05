@@ -3,6 +3,7 @@ import React from "react";
 import {
   Card,
   CardContent,
+  CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
@@ -16,15 +17,16 @@ const TaxResult = () => {
     <Card className="w-full flex flex-col rounded-lg border border-stroke bg-white shadow-lg dark:border-strokedark dark:bg-boxdark">
       <CardHeader>
         <CardTitle>Calculation details</CardTitle>
+        <CardDescription>Salary Breakdown</CardDescription>
       </CardHeader>
       <CardContent>
         <div>
           {convertToKeyValueArray(taxesResult).map((item, index) => (
             <div
               key={index}
-              className="flex justify-between items-start pb-4 last:mb-0 last:pb-0"
+              className="flex justify-between items-end pb-4 last:mb-0 last:pb-0"
             >
-              <p className="text-sm">
+              <p className="text-xs">
                 {item.key}
               </p>
               <p className="text-lg font-medium">

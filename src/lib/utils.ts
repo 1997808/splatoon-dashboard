@@ -27,7 +27,10 @@ export const getCurrencyCode = () => {
 };
 
 export const formatMoney = (amount: any) => {
-  return new Intl.NumberFormat("de-DE").format(amount);
+  if (amount == "Full") {
+    return amount;
+  }
+  return new Intl.NumberFormat("de-DE").format(Math.floor(amount));
 };
 
 export const revertFormattedMoney = (formattedAmount: string): any => {
