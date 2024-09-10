@@ -50,7 +50,7 @@ const VNTaxForm: React.FC = () => {
     resolver: zodResolver(taxCalculatorSchema),
     defaultValues: {
       incomeType: "gross",
-      income: "0",
+      income: "10000000",
       personalDeduction: "11000000",
       dependentDeduction: "4400000",
       numDependents: 0,
