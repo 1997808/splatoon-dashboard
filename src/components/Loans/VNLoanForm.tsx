@@ -25,6 +25,7 @@ import { useToast } from "@/components/ui/use-toast"
 import { formatMoney, revertFormattedMoney } from "@/lib/utils";
 import { useLoansContext } from ".";
 import { Slider } from "@/components/ui/slider";
+import { calculateDecliningPayments, calculateInterestOnlyLoan, calculateStablePayment } from "@/lib/loanUtils";
 
 const loanCalculatorSchema = z.object({
   calculationType: z.string(),
@@ -41,15 +42,24 @@ const VNLoanForm: React.FC = () => {
   const form = useForm<z.infer<typeof loanCalculatorSchema>>({
     resolver: zodResolver(loanCalculatorSchema),
     defaultValues: {
-      calculationType: "decreasing",
-      loanAmount: "10000000",
+      calculationType: "payment decreasing",
+      loanAmount: "2000000000",
       term: 5,
       interest: 7,
     },
   })
 
   const onSubmit = async (values: z.infer<typeof loanCalculatorSchema>) => {
-    setLoansResult(values)
+    const { calculationType, loanAmount, term, interest } = values
+    let result
+    if (calculationType === "payment decreasing") {
+      result = calculateDecliningPayments(Number(loanAmount), interest, term)
+    } else if (calculationType === "payment stable") {
+      result = calculateStablePayment(Number(loanAmount), interest, term)
+    } else {
+      result = calculateInterestOnlyLoan(Number(loanAmount), interest, term)
+    }
+    setLoansResult(result)
     // toast({
     //   title: "Success",
     //   description: "Profile updated"
@@ -73,11 +83,11 @@ const VNLoanForm: React.FC = () => {
                   <FormItem className="col-span-1 xl:col-span-2">
                     <FormLabel>Calculation Type</FormLabel>
                     <FormControl>
-                      <Tabs defaultValue="decreasing" className="max-w-[400px]" onClick={(e: any) => form.setValue("calculationType", e.target.innerText.toLowerCase())}>
+                      <Tabs defaultValue="payment decreasing" className="max-w-[400px]" onClick={(e: any) => form.setValue("calculationType", e.target.innerText.toLowerCase())}>
                         <TabsList>
-                          <TabsTrigger value="decreasing">Payment decreasing</TabsTrigger>
-                          <TabsTrigger value="stable">Payment stable</TabsTrigger>
-                          <TabsTrigger value="interest">Interest only</TabsTrigger>
+                          <TabsTrigger value="payment decreasing">Payment decreasing</TabsTrigger>
+                          <TabsTrigger value="payment stable">Payment stable</TabsTrigger>
+                          <TabsTrigger value="interest only">Interest only</TabsTrigger>
                         </TabsList>
                       </Tabs>
                     </FormControl>
@@ -104,10 +114,11 @@ const VNLoanForm: React.FC = () => {
                 name="term"
                 render={({ field }) => (
                   <FormItem className="col-span-1 xl:col-span-2">
-                    <FormLabel>Term</FormLabel>
+                    <FormLabel>Term (years)</FormLabel>
                     <FormControl>
                       <Input type="number" {...field} />
                     </FormControl>
+                    <Slider className="!mt-4" defaultValue={[5]} min={1} max={40} step={1} onChange={(e: any) => form.setValue("term", e.target.value)} />
                     <FormMessage />
                   </FormItem>
                 )}
@@ -117,11 +128,11 @@ const VNLoanForm: React.FC = () => {
                 name="interest"
                 render={({ field }) => (
                   <FormItem className="col-span-1 xl:col-span-2">
-                    <FormLabel>Interest Rate</FormLabel>
-                    <Slider defaultValue={[7]} min={0} max={40} step={1} onChange={(e: any) => form.setValue("interest", e.target.value)} />
+                    <FormLabel>Interest Rate (%)</FormLabel>
                     <FormControl>
                       <Input type="text" {...field} />
                     </FormControl>
+                    <Slider className="!mt-4" defaultValue={[5]} min={0} max={40} step={0.1} onChange={(e: any) => form.setValue("interest", e.target.value)} />
                     <FormMessage />
                   </FormItem>
                 )}

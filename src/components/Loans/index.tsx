@@ -5,30 +5,32 @@ import LoanResult from "@/components/Loans/LoanResult";
 
 export type ContextProps = {
   loansResult: {
-    grossSalary: any,
-    socialInsurance: any,
-    healthInsurance: any,
-    unemployedInsurance: any,
-    taxDeductions: any,
-    personalIncomeTax: any
-    netSalary: any,
-    comment?: string
+    averagePayment: any,
+    firstPayment: any,
+    lastPayment: any,
+    totalInterest: any,
+    totalPayment: any
   }
   setLoansResult: React.Dispatch<React.SetStateAction<any>>
 };
 
-const LoansContext = createContext<ContextProps>({ loansResult: { grossSalary: 0, socialInsurance: 0, healthInsurance: 0, unemployedInsurance: 0, taxDeductions: 0, personalIncomeTax: 0, netSalary: 0, comment: "" }, setLoansResult: () => { } })
+const LoansContext = createContext<ContextProps>({
+  loansResult: {
+    averagePayment: 0,
+    firstPayment: 0,
+    lastPayment: 0,
+    totalInterest: 0,
+    totalPayment: 0
+  }, setLoansResult: () => { }
+})
 
 const Loans: React.FC = () => {
   const [loansResult, setLoansResult] = useState({
-    grossSalary: 0,
-    socialInsurance: 0,
-    healthInsurance: 0,
-    unemployedInsurance: 0,
-    taxDeductions: 0,
-    personalIncomeTax: 0,
-    netSalary: 0,
-    comment: ""
+    averagePayment: 0,
+    firstPayment: 0,
+    lastPayment: 0,
+    totalInterest: 0,
+    totalPayment: 0,
   })
 
   return (
