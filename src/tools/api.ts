@@ -18,6 +18,7 @@ MyAxios.interceptors.response.use(
   (err: any) => {
     if (err?.response?.status === 401) {
       Cookies.remove("token");
+      Cookies.remove("profile");
       window.location.replace("/auth/signin");
     }
     normalizeError(err.response?.data.message);

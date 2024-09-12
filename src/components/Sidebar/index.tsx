@@ -5,6 +5,8 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowLeft, ArrowRightFromLine, ArrowRightLeft, Crosshair, LayoutGrid, LogOut, ReceiptJapaneseYen, Settings, Wallet, SquareBottomDashedScissors, HandCoins } from "lucide-react";
+import { getUserProfile } from "@/lib/utils";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface SidebarProps {
   sidebarOpen: boolean;
@@ -13,6 +15,7 @@ interface SidebarProps {
 
 const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
   const pathname = usePathname();
+  const [profile, setProfile] = useState<any>(undefined);
 
   const trigger = useRef<any>(null);
   const sidebar = useRef<any>(null);
@@ -57,6 +60,19 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
       document.querySelector("body")?.classList.remove("sidebar-expanded");
     }
   }, [sidebarExpanded]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getUserProfile()
+        setProfile(data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    fetchData();
+  }, [])
 
   return (
     <aside
@@ -210,7 +226,11 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                     alt="profile"
                   />
                   <div className="flex flex-col grow">
-                    <span className="text-white font-bold">John Doe</span>
+                    {profile && profile.username ? (
+                      <span className="text-white font-bold">{profile.username}</span>
+                    ) : (
+                      <Skeleton className="w-[full] h-[20px] rounded" />
+                    )}
                     <span className="text-neutral-400 text-xs">View profile</span>
                   </div>
                 </div>

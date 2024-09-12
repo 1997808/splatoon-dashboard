@@ -32,7 +32,8 @@ import {
 } from "@/components/ui/card"
 import { useToast } from "@/components/ui/use-toast"
 import { currencies } from "@/lib/currency";
-import { getProfile, updateProfile } from "@/tools/user";
+import { updateProfile } from "@/tools/user";
+import { getUserProfile, updateUserProfile } from "@/lib/utils";
 
 const formSchema = z.object({
   username: z.string().optional(),
@@ -58,7 +59,7 @@ const ProfileUpdate: React.FC = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const { data } = await getProfile()
+        const data = await getUserProfile()
         form.reset(data)
       } catch (error) {
         console.log(error);
@@ -77,6 +78,7 @@ const ProfileUpdate: React.FC = () => {
         description: "Something went wrong"
       })
     }
+    await updateUserProfile()
     toast({
       title: "Success",
       description: "Profile updated"
