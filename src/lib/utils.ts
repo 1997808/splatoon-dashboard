@@ -1,5 +1,7 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
+import Cookies from "js-cookie";
+import { getProfile } from "@/tools/user";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -26,8 +28,21 @@ export const getCurrencyCode = () => {
   return currency;
 };
 
-export const formatMoney = (amount: number) => {
-  return new Intl.NumberFormat("de-DE").format(amount);
+export const formatMoney = (amount: any) => {
+  if (amount == "Full") {
+    return amount;
+  }
+  return new Intl.NumberFormat("de-DE").format(Math.floor(amount));
+};
+
+export const revertFormattedMoney = (formattedAmount: string): any => {
+  // Remove all non-numeric characters except the decimal separator (if any)
+  const cleanedAmount = formattedAmount
+    .replace(/[^\d,-]/g, "")
+    .replace(",", ".");
+
+  // Parse the cleaned string into a number
+  return cleanedAmount || "0";
 };
 
 export const getParamsFilter = (data: any) => {
@@ -45,4 +60,26 @@ export const getParamsFilter = (data: any) => {
     params = "?" + params;
   }
   return params;
+};
+
+export const getUserProfile: any = async () => {
+  let profile = Cookies.get("profile");
+  if (profile === undefined) {
+    let result = await getProfile();
+    profile = { ...result };
+    Cookies.set("profile", JSON.stringify(profile));
+  } else {
+    profile = JSON.parse(profile);
+  }
+  return profile;
+};
+
+export const updateUserProfile: any = async () => {
+  let profile = Cookies.get("profile");
+  if (profile === undefined) {
+    profile = JSON.stringify({});
+  }
+  let oldProfile = JSON.parse(profile);
+  let { data } = await getProfile();
+  Cookies.set("profile", JSON.stringify({ ...oldProfile, ...data }));
 };

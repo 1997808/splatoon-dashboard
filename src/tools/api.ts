@@ -1,10 +1,13 @@
+"use client";
 import axios from "axios";
 import Cookies from "js-cookie";
-
 const accessToken = Cookies.get("token");
 
+let baseURL =
+  process.env.NEXT_PUBLIC_BASE_URL || window.location.origin + "/api";
+
 export const MyAxios = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_BASE_URL,
+  baseURL: baseURL,
   withCredentials: false,
   headers: {
     Authorization: `Bearer ${accessToken}`,
@@ -16,6 +19,7 @@ MyAxios.interceptors.response.use(
   (err: any) => {
     if (err?.response?.status === 401) {
       Cookies.remove("token");
+      Cookies.remove("profile");
       window.location.replace("/auth/signin");
     }
     normalizeError(err.response?.data.message);

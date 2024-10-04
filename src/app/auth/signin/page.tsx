@@ -3,7 +3,7 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import BlankLayout from "@/components/Layouts/BlankLayout";
-import { Chrome, LockKeyhole, Mail } from "lucide-react";
+import { LockKeyhole, Mail } from "lucide-react";
 import { MyAxios, updateToken } from "@/tools/api";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form"
@@ -26,6 +26,7 @@ const SignIn: React.FC = () => {
     const { email, password } = payload
     const res = await MyAxios.post("/auth/login", { email, password })
     Cookies.set("token", res.data.data.access_token)
+    Cookies.set("profile", JSON.stringify(res.data.data.profile))
     updateToken()
     router.push("/")
   })
