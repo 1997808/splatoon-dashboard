@@ -3,7 +3,8 @@ import axios from "axios";
 import Cookies from "js-cookie";
 const accessToken = Cookies.get("token");
 
-let baseURL = process.env.NEXT_PUBLIC_BASE_URL;
+let baseURL =
+  process.env.NEXT_PUBLIC_BASE_URL || window.location.origin + "/api";
 
 export const MyAxios = axios.create({
   baseURL: baseURL,
