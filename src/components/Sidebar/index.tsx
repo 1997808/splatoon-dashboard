@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowLeft, ArrowRightFromLine, ArrowRightLeft, Crosshair, LayoutGrid, LogOut, ReceiptJapaneseYen, Settings, Wallet, SquareBottomDashedScissors, HandCoins } from "lucide-react";
+import { ArrowLeft, ArrowRightFromLine, ArrowRightLeft, Crosshair, LayoutGrid, LogOut, ReceiptJapaneseYen, Settings, Wallet, SquareBottomDashedScissors, HandCoins, Computer } from "lucide-react";
 import { getUserProfile } from "@/lib/utils";
 import { Skeleton } from "@/components/ui/skeleton";
 
@@ -126,6 +126,17 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               >
                 <Wallet size={20} />
                 Balances
+              </Link>
+            </li>
+
+            <li>
+              <Link
+                href="/poi"
+                className={`group relative flex items-center gap-2.5 rounded-lg px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes("poi") && "bg-graydark dark:bg-meta-4"
+                  }`}
+              >
+                <Computer size={20} />
+                Point of Input
               </Link>
             </li>
 
