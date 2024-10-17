@@ -1,39 +1,64 @@
 "use client"
-import React, { useState } from "react";
+import { DatePickerDemo } from "@/components/Poi/DatePicka";
+import { Button } from "@/components/ui/button";
 import {
   Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
-import { useToast } from "@/components/ui/use-toast"
+  CardContent
+} from "@/components/ui/card";
+import { useToast } from "@/components/ui/use-toast";
+import { formatMoney } from "@/lib/utils";
+import dayjs from "dayjs";
+import { Plus } from "lucide-react";
+import React, { useEffect, useState } from "react";
 import { usePoiContext } from ".";
-import { Button } from "../ui/button";
 
 const PoiForm: React.FC = () => {
   const { toast } = useToast()
-  const { setPoiResult } = usePoiContext();
-  const [type, setType] = useState("")
-  const [selected, setSelected] = useState("")
+  const { category, itemList, addItemResult } = usePoiContext();
+  const [list, setList] = useState(itemList)
+  const [type, setType] = useState("Expense")
+  const [date, setDate] = useState<Date>(dayjs().toDate())
+  const [selectedCategory, setSelectedCategory] = useState()
+
+  useEffect(() => {
+    if (!date)
+      setDate(dayjs().toDate())
+  }, [date])
+
+  useEffect(() => {
+    if (category.length > 0)
+      setSelectedCategory(category[0]?.id)
+  }, [category])
+
+  useEffect(() => {
+    setList(itemList.filter((item: any) => item.category === selectedCategory && item.type === type.toLowerCase()))
+  }, [itemList, selectedCategory, type])
 
   return (
     <>
-      <Card className="xl:max-w-screen-md w-full h-full mx-auto rounded-lg border border-stroke bg-white shadow-lg dark:border-strokedark dark:bg-boxdark">
-        <CardContent className="flex flex-col gap-4 pt-6">
-          <div className="flex gap-2">
-            {["Expense", "Income", "Debt"].map((item, index) => (
-              <Button key={item} className="" variant={item === type ? "default" : "ghost"} onClick={() => setType(item)}>{item}</Button>
+      <Card className="xl:max-w-screen-md w-full h-screen mx-auto rounded-lg border border-stroke bg-white shadow-lg dark:border-strokedark dark:bg-boxdark">
+        <CardContent className="flex flex-col h-full gap-4 pt-6">
+          <div className="flex justify-between items-start">
+            <div className="flex gap-1">
+              {["Expense", "Income", "Debt"].map((item, index) => (
+                <Button key={item} className="" variant={item === type ? "default" : "ghost"} onClick={() => setType(item)}>{item}</Button>
+              ))}
+            </div>
+            <DatePickerDemo date={date} setDate={setDate} />
+          </div>
+          <div className="flex gap-1 flex-wrap">
+            {category.map((item, index) => (
+              <Button key={item.id} className="" variant={item.id === selectedCategory ? "default" : "ghost"} onClick={() => setSelectedCategory(item.id)}>{item.name}</Button>
             ))}
           </div>
-          <div className="flex gap-2 overflow-hidden">
-            {["All", "Coffee", "Non Coffee", "Food", "Snack", "Other"].map((item, index) => (
-              <Button key={item} className="" variant={item === selected ? "default" : "ghost"} onClick={() => setSelected(item)}>{item}</Button>
-            ))}
-          </div>
-          <div className="grid grid-cols-4 gap-2 h-full">
-            {["All", "Coffee", "Non Coffee", "Food", "Snack", "Other"].map((item, index) => (
-              <Card key={item} className="w-full aspect-square flex justify-center items-center">{item}</Card>
+          <div className="grid grid-cols-4 gap-2 h-full overflow-y-scroll pr-2">
+            <Card className="w-full aspect-square flex justify-center items-center bg-white hover:bg-stone-50 duration-150 cursor-pointer p-4"><Plus /></Card>
+            {list.map((item, index) => (
+              <Card key={item.id} className="w-full aspect-square flex flex-col justify-between items-center bg-white hover:bg-stone-100 duration-150 cursor-pointer p-4" onClick={() => addItemResult(item)}>
+                <p className="text-xs">{item.category ? category.find((c) => c.id === item.category)?.name : ""}</p>
+                <p className="text-base">{item.item}</p>
+                <p className="text-xs">{formatMoney(item.amount)}</p>
+              </Card>
             ))}
           </div>
         </CardContent>
