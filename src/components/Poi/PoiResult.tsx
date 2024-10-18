@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -6,10 +7,17 @@ import {
 } from "@/components/ui/card";
 import { formatMoney } from "@/lib/utils";
 import { CopyIcon, XIcon } from "lucide-react";
+import { useEffect } from "react";
 import { usePoiContext } from ".";
 
 const PoiResult = () => {
-  const { category, itemResult, deleteItemResult } = usePoiContext();
+  const { category, balances, selectedBalance, setSelectedBalance, itemResult, itemSelected, setItemSelected, itemIndexSelected, setItemIndexSelected, deleteItemResult } = usePoiContext();
+
+  useEffect(() => {
+    if (balances.length > 0)
+      setSelectedBalance(balances[0]?.id)
+  }, [balances])
+
   return (
     <Card className="w-full h-full flex flex-col rounded-none border border-stroke bg-white shadow-lg dark:border-strokedark dark:bg-boxdark">
       <CardContent className="pt-6 h-screen flex flex-col justify-between">
@@ -17,7 +25,16 @@ const PoiResult = () => {
           {itemResult.map((item, index) => (
             <div
               key={index}
-              className="flex justify-between px-2 py-4 border-b border-stroke dark:border-strokedark"
+              className={`flex justify-between px-2 py-4 border-l-4 ${itemIndexSelected === index ? "border-l-primary" : "border-l-transparent"} border-b border-b-stroke dark:border-b-strokedark`}
+              onClick={() => {
+                if (index === itemIndexSelected) {
+                  setItemIndexSelected(null)
+                  setItemSelected({})
+                } else {
+                  setItemIndexSelected(index)
+                  setItemSelected(item)
+                }
+              }}
             >
               <div className="flex flex-col justify-between gap-2">
                 <div className="flex justify-start items-center gap-1">
@@ -34,9 +51,16 @@ const PoiResult = () => {
                 </div>
               </div>
               <div className="flex flex-col justify-between items-end">
-                <div className="flex justify-center items-center rounded p-1 bg-white hover:bg-rose-500 hover:text-white duration-150 cursor-pointer" onClick={() => deleteItemResult(index)}>
-                  <XIcon size={14} />
-                </div>
+                {itemIndexSelected === null ? (
+                  <div className="flex justify-center items-center rounded p-1 bg-white hover:bg-rose-500 hover:text-white duration-150 cursor-pointer" onClick={() => {
+                    // TODO handle delete item still selected
+                    deleteItemResult(index)
+                    setItemIndexSelected(null)
+                    setItemSelected({})
+                  }}>
+                    <XIcon size={14} />
+                  </div>
+                ) : <div></div>}
                 <p className="text-xs">
                   {formatMoney(item.amount)}
                 </p>
@@ -44,10 +68,34 @@ const PoiResult = () => {
             </div>
           ))}
         </div>
-        <div className="">
-          <Button className="mt-4 w-full" variant={"secondary"}>Add new</Button>
-          <Button className="mt-4 w-full" variant={"secondary"}>Save draft</Button>
-          <Button className="mt-4 w-full">Submit</Button>
+        <div>
+          <div className="flex gap-4 overflow-x-scroll pb-1">
+            {balances.map((balance, index) => (
+              <div
+                key={index}
+                className={`flex flex-col justify-between items-center gap-1 p-2 rounded duration-150 cursor-pointer ${selectedBalance === balance.id ? "bg-primary text-white" : "bg-white"}`}
+                onClick={() => setSelectedBalance(balance?.id)}
+              >
+                <p className="text-xs font-medium">
+                  {balance.sourceName}
+                </p>
+                <p className="text-xs">
+                  {formatMoney(balance.balanceAmount)}
+                </p>
+              </div>
+            ))}
+          </div>
+          {itemIndexSelected === null ? <></> :
+            (
+              <Button className="mt-3 w-full" variant={"outline"} onClick={() => {
+                setItemIndexSelected(null)
+                setItemSelected({})
+              }}>Deselect item</Button>
+            )}
+          <div className="flex gap-4">
+            <Button className="mt-4 w-full" variant={"secondary"}>Save draft</Button>
+            <Button className="mt-4 w-full">Submit</Button>
+          </div>
         </div>
       </CardContent>
     </Card>

@@ -1,11 +1,12 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client"
 import { DatePickerDemo } from "@/components/Poi/DatePicka";
+import TransactionsPoi from "@/components/Poi/TransactionsPoi";
 import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent
 } from "@/components/ui/card";
-import { useToast } from "@/components/ui/use-toast";
 import { formatMoney } from "@/lib/utils";
 import dayjs from "dayjs";
 import { Plus } from "lucide-react";
@@ -13,12 +14,11 @@ import React, { useEffect, useState } from "react";
 import { usePoiContext } from ".";
 
 const PoiForm: React.FC = () => {
-  const { toast } = useToast()
-  const { category, itemList, addItemResult } = usePoiContext();
+  const { category, selectedType, setSelectedType, selectedCategory, setSelectedCategory, date, setDate, itemList, addItemResult, itemSelected, itemIndexSelected } = usePoiContext();
   const [list, setList] = useState(itemList)
-  const [type, setType] = useState("Expense")
-  const [date, setDate] = useState<Date>(dayjs().toDate())
-  const [selectedCategory, setSelectedCategory] = useState()
+  // const [selectedType, setSelectedType] = useState("Expense")
+  // const [date, setDate] = useState<Date>(dayjs().toDate())
+  // const [selectedCategory, setSelectedCategory] = useState()
 
   useEffect(() => {
     if (!date)
@@ -31,8 +31,8 @@ const PoiForm: React.FC = () => {
   }, [category])
 
   useEffect(() => {
-    setList(itemList.filter((item: any) => item.category === selectedCategory && item.type === type.toLowerCase()))
-  }, [itemList, selectedCategory, type])
+    setList(itemList.filter((item: any) => item.category === selectedCategory && item.type === selectedType.toLowerCase()))
+  }, [itemList, selectedCategory, selectedType])
 
   return (
     <>
@@ -41,7 +41,7 @@ const PoiForm: React.FC = () => {
           <div className="flex justify-between items-start">
             <div className="flex gap-1">
               {["Expense", "Income", "Debt"].map((item, index) => (
-                <Button key={item} className="" variant={item === type ? "default" : "ghost"} onClick={() => setType(item)}>{item}</Button>
+                <Button key={item} className="" variant={item === selectedType ? "default" : "ghost"} onClick={() => setSelectedType(item)}>{item}</Button>
               ))}
             </div>
             <DatePickerDemo date={date} setDate={setDate} />
@@ -51,16 +51,20 @@ const PoiForm: React.FC = () => {
               <Button key={item.id} className="" variant={item.id === selectedCategory ? "default" : "ghost"} onClick={() => setSelectedCategory(item.id)}>{item.name}</Button>
             ))}
           </div>
-          <div className="grid grid-cols-4 gap-2 h-full overflow-y-scroll pr-2">
-            <Card className="w-full aspect-square flex justify-center items-center bg-white hover:bg-stone-50 duration-150 cursor-pointer p-4"><Plus /></Card>
-            {list.map((item, index) => (
-              <Card key={item.id} className="w-full aspect-square flex flex-col justify-between items-center bg-white hover:bg-stone-100 duration-150 cursor-pointer p-4" onClick={() => addItemResult(item)}>
-                <p className="text-xs">{item.category ? category.find((c) => c.id === item.category)?.name : ""}</p>
-                <p className="text-base">{item.item}</p>
-                <p className="text-xs">{formatMoney(item.amount)}</p>
-              </Card>
-            ))}
-          </div>
+          {itemIndexSelected !== null ? (
+            <TransactionsPoi />
+          ) : (
+            <div className="grid grid-cols-4 gap-2 h-full overflow-y-scroll pr-2">
+              <Card className="w-full aspect-square flex justify-center items-center bg-white hover:bg-stone-50 duration-150 cursor-pointer p-4"><Plus /></Card>
+              {list.map((item, index) => (
+                <Card key={item.id} className="w-full aspect-square flex flex-col justify-between items-center bg-white hover:bg-stone-100 duration-150 cursor-pointer p-4" onClick={() => addItemResult(item)}>
+                  <p className="text-xs">{item.category ? category.find((c) => c.id === item.category)?.name : ""}</p>
+                  <p className="text-base">{item.item}</p>
+                  <p className="text-xs">{formatMoney(item.amount)}</p>
+                </Card>
+              ))}
+            </div>
+          )}
         </CardContent>
       </Card>
     </>
