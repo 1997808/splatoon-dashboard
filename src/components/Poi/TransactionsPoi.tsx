@@ -12,6 +12,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
+import { formatMoney, revertFormattedMoney } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
@@ -80,7 +81,7 @@ const TransactionsPoi: React.FC = () => {
                 <FormItem>
                   <FormLabel>Amount</FormLabel>
                   <FormControl>
-                    <Input type="number" placeholder="Enter the amount" {...field} />
+                    <Input type="text" {...field} onChange={(e) => form.setValue("amount", revertFormattedMoney(e.target.value))} value={formatMoney(field.value)} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

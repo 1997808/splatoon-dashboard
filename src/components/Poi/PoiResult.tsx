@@ -11,7 +11,7 @@ import { useEffect } from "react";
 import { usePoiContext } from ".";
 
 const PoiResult = () => {
-  const { category, balances, selectedBalance, setSelectedBalance, itemResult, itemSelected, setItemSelected, itemIndexSelected, setItemIndexSelected, updateItemResult, deleteItemResult } = usePoiContext();
+  const { category, balances, selectedBalance, setSelectedBalance, itemResult, itemSelected, setItemSelected, itemIndexSelected, setItemIndexSelected, updateItemResult, deleteItemResult, onSubmit } = usePoiContext();
 
   useEffect(() => {
     if (balances.length > 0)
@@ -89,17 +89,18 @@ const PoiResult = () => {
               </div>
             ))}
           </div>
-          {itemIndexSelected === null ? <></> :
-            (
-              <Button className="mt-3 w-full" variant={"outline"} onClick={() => {
-                setItemIndexSelected(null)
-                setItemSelected({})
-              }}>Deselect item</Button>
-            )}
-          <div className="flex gap-4">
-            <Button className="mt-4 w-full" variant={"secondary"}>Save draft</Button>
-            <Button className="mt-4 w-full">Submit</Button>
-          </div>
+          {itemIndexSelected === null ? (
+            <div className="flex gap-4">
+              <Button className="mt-4 w-full" variant={"secondary"} onClick={() => { }}>Save draft</Button>
+              <Button className="mt-4 w-full" onClick={() => onSubmit()}>Submit</Button>
+            </div>
+          ) : (
+            <Button className="mt-4 w-full" variant={"outline"} onClick={() => {
+              setItemIndexSelected(null)
+              setItemSelected({})
+            }}>Deselect item</Button>
+          )}
+
         </div>
       </CardContent>
     </Card>

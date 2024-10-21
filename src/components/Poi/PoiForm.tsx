@@ -51,7 +51,7 @@ const PoiForm: React.FC = () => {
               {TransactionType.map((item, index) => (
                 <Button key={index} className="capitalize" variant={item.value === selectedType ? "default" : "ghost"} onClick={() => {
                   if (itemIndexSelected !== null) {
-                    updateItemResult({ type: item }, itemIndexSelected)
+                    updateItemResult({ type: item.value }, itemIndexSelected)
                   }
                   setSelectedType(item.value)
                 }}>{item.label}</Button>
@@ -72,7 +72,7 @@ const PoiForm: React.FC = () => {
           {itemIndexSelected !== null ? (
             <TransactionsPoi />
           ) : (
-            <div className="grid grid-cols-4 gap-2 h-full overflow-y-scroll pr-2">
+            <div className="grid grid-cols-4 gap-2 max-h-full overflow-y-scroll pr-2">
               <Card className="w-full aspect-square flex justify-center items-center bg-white hover:bg-stone-50 duration-150 cursor-pointer p-4" onClick={() => addItemResult({ ...placeholder, category: selectedCategory, type: selectedType, balance: selectedBalance, transactionDate: date })}><Plus /></Card>
               {list.map((item, index) => (
                 <Card key={item.id} className="w-full aspect-square flex flex-col justify-between items-center bg-white hover:bg-stone-100 duration-150 cursor-pointer p-4" onClick={() => addItemResult(item)}>
