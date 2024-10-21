@@ -11,7 +11,7 @@ import { useEffect } from "react";
 import { usePoiContext } from ".";
 
 const PoiResult = () => {
-  const { category, balances, selectedBalance, setSelectedBalance, itemResult, itemSelected, setItemSelected, itemIndexSelected, setItemIndexSelected, deleteItemResult } = usePoiContext();
+  const { category, balances, selectedBalance, setSelectedBalance, itemResult, itemSelected, setItemSelected, itemIndexSelected, setItemIndexSelected, updateItemResult, deleteItemResult } = usePoiContext();
 
   useEffect(() => {
     if (balances.length > 0)
@@ -25,7 +25,7 @@ const PoiResult = () => {
           {itemResult.map((item, index) => (
             <div
               key={index}
-              className={`flex justify-between px-2 py-4 border-l-4 ${itemIndexSelected === index ? "border-l-primary" : "border-l-transparent"} border-b border-b-stroke dark:border-b-strokedark`}
+              className={`flex justify-between gap-2 px-2 py-4 border-l-4 ${itemIndexSelected === index ? "border-l-primary" : "border-l-transparent"} border-b border-b-stroke dark:border-b-strokedark`}
               onClick={() => {
                 if (index === itemIndexSelected) {
                   setItemIndexSelected(null)
@@ -46,22 +46,21 @@ const PoiResult = () => {
                   </p>
                 </div>
                 <div className="flex flex-wrap gap-1 items-center text-xs">
-                  <Badge variant="outline">{item.type}</Badge>
-                  <Badge variant="outline">{item.category ? category.find((c) => c.id === item.category)?.name : ""}</Badge>
+                  {item.type && <Badge variant="outline" className="capitalize">{item.type}</Badge>}
+                  {item.category && <Badge variant="outline">{item.category ? category.find((c) => c.id === item.category)?.name : ""}</Badge>}
+                  {item.balance && <Badge variant="outline">{item.balance ? balances.find((b) => b.id === item.balance)?.sourceName : ""}</Badge>}
                 </div>
               </div>
               <div className="flex flex-col justify-between items-end">
                 {itemIndexSelected === null ? (
-                  <div className="flex justify-center items-center rounded p-1 bg-white hover:bg-rose-500 hover:text-white duration-150 cursor-pointer" onClick={() => {
-                    // TODO handle delete item still selected
+                  <div className="flex justify-center items-center rounded p-1 bg-white hover:bg-rose-500 hover:text-white duration-150 cursor-pointer" onClick={(e) => {
+                    e.stopPropagation(); // Prevents item selection
                     deleteItemResult(index)
-                    setItemIndexSelected(null)
-                    setItemSelected({})
                   }}>
                     <XIcon size={14} />
                   </div>
                 ) : <div></div>}
-                <p className="text-xs">
+                <p className="text-xs pr-1">
                   {formatMoney(item.amount)}
                 </p>
               </div>
@@ -74,7 +73,12 @@ const PoiResult = () => {
               <div
                 key={index}
                 className={`flex flex-col justify-between items-center gap-1 p-2 rounded duration-150 cursor-pointer ${selectedBalance === balance.id ? "bg-primary text-white" : "bg-white"}`}
-                onClick={() => setSelectedBalance(balance?.id)}
+                onClick={() => {
+                  if (itemIndexSelected !== null) {
+                    updateItemResult({ balance: balance?.id }, itemIndexSelected)
+                  }
+                  setSelectedBalance(balance?.id)
+                }}
               >
                 <p className="text-xs font-medium">
                   {balance.sourceName}
@@ -101,68 +105,5 @@ const PoiResult = () => {
     </Card>
   )
 }
-
-const demoData = [
-  {
-    "id": 52,
-    "item": "Spotify",
-    "description": "Monthly Music Tax",
-    "amount": 60001,
-    "type": "expense",
-    "balance": {
-      "id": 1,
-      "sourceName": "Cash",
-      "accountNumber": "null",
-      "balanceAmount": 469000,
-      "currency": "VND",
-      "user": 5,
-      "lastUpdated": "2024-08-09T09:56:16.321Z",
-      "description": "absolute classic"
-    },
-    "user": 5,
-    "category": 10,
-    "transactionDate": "2024-10-10T17:00:00.000Z"
-  },
-  {
-    "id": 54,
-    "item": "Đào cam sả",
-    "description": "Aha coffee",
-    "amount": 50000,
-    "type": "expense",
-    "balance": {
-      "id": 2,
-      "sourceName": "TCB",
-      "accountNumber": "4015",
-      "balanceAmount": 1400000,
-      "currency": "VND",
-      "user": 5,
-      "lastUpdated": "2024-08-09T08:46:38.399Z",
-      "description": "Techcombank"
-    },
-    "user": 5,
-    "category": 3,
-    "transactionDate": "2024-10-10T17:00:00.000Z"
-  },
-  {
-    "id": 49,
-    "item": "Working",
-    "description": "",
-    "amount": 22000000,
-    "type": "income",
-    "balance": {
-      "id": 2,
-      "sourceName": "TCB",
-      "accountNumber": "4015",
-      "balanceAmount": 1400000,
-      "currency": "VND",
-      "user": 5,
-      "lastUpdated": "2024-08-09T08:46:38.399Z",
-      "description": "Techcombank"
-    },
-    "user": 5,
-    "category": 6,
-    "transactionDate": "2024-10-10T17:00:00.000Z"
-  },
-]
 
 export default PoiResult;

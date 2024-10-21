@@ -35,6 +35,7 @@ export type ContextProps = {
   itemResult: any[]
   addItemResult: (item: any) => void
   updateItemResult: (item: any, index: any) => void
+  updateFormResult: (item: any, index: any) => void
   deleteItemResult: (item: any) => void
   itemSelected: any
   setItemSelected: React.Dispatch<React.SetStateAction<any>>
@@ -42,13 +43,13 @@ export type ContextProps = {
   setItemIndexSelected: React.Dispatch<React.SetStateAction<number | null>>
 };
 
-const PoiContext = createContext<ContextProps>({ category: [], balances: [], selectedBalance: 0, setSelectedBalance: () => { }, selectedType: "Expense", setSelectedType: () => { }, date: new Date(), setDate: () => { }, selectedCategory: 0, setSelectedCategory: () => { }, itemList: [], setItemList: () => { }, itemResult: [], addItemResult: () => { }, updateItemResult: () => { }, deleteItemResult: () => { }, itemSelected: [], setItemSelected: () => { }, itemIndexSelected: null, setItemIndexSelected: () => { } })
+const PoiContext = createContext<ContextProps>({ category: [], balances: [], selectedBalance: 0, setSelectedBalance: () => { }, selectedType: "expense", setSelectedType: () => { }, date: new Date(), setDate: () => { }, selectedCategory: 0, setSelectedCategory: () => { }, itemList: [], setItemList: () => { }, itemResult: [], addItemResult: () => { }, updateItemResult: () => { }, updateFormResult: () => { }, deleteItemResult: () => { }, itemSelected: [], setItemSelected: () => { }, itemIndexSelected: null, setItemIndexSelected: () => { } })
 
 const Poi: React.FC = () => {
   const [loading, setLoading] = useState(true)
   const [category, setCategory] = useState<any[]>([])
   const [balances, setBalances] = useState<any[]>([])
-  const [selectedType, setSelectedType] = useState("Expense")
+  const [selectedType, setSelectedType] = useState("expense")
   const [date, setDate] = useState<Date>(dayjs().toDate())
   const [selectedCategory, setSelectedCategory] = useState<any>()
 
@@ -59,15 +60,27 @@ const Poi: React.FC = () => {
   const [itemIndexSelected, setItemIndexSelected] = useState<number | null>(null)
 
   const addItemResult = (item: any) => {
-    setItemResult([...itemResult, item])
+    const newItem = { ...item, balance: selectedBalance, transactionDate: date }
+    setItemResult([...itemResult, newItem])
   }
 
   const updateItemResult = (item: any, index: any) => {
-    setItemResult([...itemResult.slice(0, index), item, ...itemResult.slice(index + 1)])
+    setItemResult([...itemResult.slice(0, index), { ...itemResult[index], ...item }, ...itemResult.slice(index + 1)])
+  }
+
+  const updateFormResult = (item: any, index: any) => {
+    setItemResult([...itemResult.slice(0, index), { ...itemResult[index], ...item }, ...itemResult.slice(index + 1)])
+    deselectItem()
   }
 
   const deleteItemResult = (index: any) => {
     setItemResult([...itemResult.slice(0, index), ...itemResult.slice(index + 1)])
+    deselectItem()
+  }
+
+  const deselectItem = () => {
+    setItemIndexSelected(null)
+    setItemSelected({})
   }
 
   useEffect(() => {
@@ -91,7 +104,7 @@ const Poi: React.FC = () => {
   }, [])
 
   return (
-    <PoiContext.Provider value={{ category, balances, selectedBalance, setSelectedBalance, selectedType, setSelectedType, date, setDate, selectedCategory, setSelectedCategory, itemList, setItemList, itemResult, addItemResult, updateItemResult, deleteItemResult, itemSelected, setItemSelected, itemIndexSelected, setItemIndexSelected }}>
+    <PoiContext.Provider value={{ category, balances, selectedBalance, setSelectedBalance, selectedType, setSelectedType, date, setDate, selectedCategory, setSelectedCategory, itemList, setItemList, itemResult, addItemResult, updateItemResult, updateFormResult, deleteItemResult, itemSelected, setItemSelected, itemIndexSelected, setItemIndexSelected }}>
       {loading ? <Loading /> : (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 h-screen">
           <div className="col-span-2 h-full">

@@ -24,9 +24,8 @@ const formSchema = z.object({
 })
 
 const TransactionsPoi: React.FC = () => {
-  const { updateItemResult, itemSelected, itemIndexSelected } = usePoiContext();
+  const { updateFormResult, itemSelected, itemIndexSelected } = usePoiContext();
   const { toast } = useToast()
-  console.log(itemSelected, '=============')
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
@@ -51,7 +50,7 @@ const TransactionsPoi: React.FC = () => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     // TODO handle apply update item in list
-    updateItemResult(values, itemIndexSelected)
+    updateFormResult(values, itemIndexSelected)
   }
 
   return (
@@ -105,7 +104,7 @@ const TransactionsPoi: React.FC = () => {
               )}
             />
             <div className="col-span-1 w-full flex justify-center">
-              <Button type="submit">Save</Button>
+              <Button type="submit">Update detail</Button>
             </div>
           </form>
         </Form>
