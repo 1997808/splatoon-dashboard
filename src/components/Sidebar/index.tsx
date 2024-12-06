@@ -1,12 +1,12 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
-import { usePathname } from "next/navigation";
-import Link from "next/link";
-import Image from "next/image";
-import { ArrowLeft, ArrowRightFromLine, ArrowRightLeft, Crosshair, LayoutGrid, LogOut, ReceiptJapaneseYen, Settings, Wallet, SquareBottomDashedScissors, HandCoins, Computer } from "lucide-react";
-import { getUserProfile } from "@/lib/utils";
 import { Skeleton } from "@/components/ui/skeleton";
+import { getUserProfile } from "@/lib/utils";
+import { ArrowLeft, ArrowRightFromLine, ArrowRightLeft, Computer, Crosshair, HandCoins, LayoutGrid, LogOut, ReceiptJapaneseYen, Settings, SquareBottomDashedScissors, Wallet } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
 
 interface SidebarProps {
   sidebarOpen: boolean;
@@ -83,7 +83,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
       {/* <!-- SIDEBAR HEADER --> */}
       <div className="flex items-center justify-between gap-2 px-6 py-6 lg:py-6">
         <div className="flex items-center justify-center flex-grow">
-          <Link className="gap-2 font-bold text-white text-2xl" href="/">
+          <Link className="gap-2 font-bold text-white text-2xl" href="/" prefetch={false}>
             PineStats
           </Link>
         </div>
@@ -224,7 +224,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
           <div>
             <hr className="h-px m-4 bg-neutral-500 border-0" />
             <div className="flex justify-between items-center px-4 py-2 gap-3">
-              <Link href="/settings">
+              <Link href="/settings" prefetch={false}>
                 <div className="group relative flex items-center px-2 py-1 gap-3 rounded-lg font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 grow">
                   <Image
                     src={"/images/user/user-06.png"}
@@ -247,7 +247,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                 </div>
               </Link>
               <div className="rounded-lg p-2 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4">
-                <Link href="/auth/signin">
+                <Link href="/auth/signin" prefetch={false}>
                   <LogOut size={16} className="text-white" />
                 </Link>
               </div>

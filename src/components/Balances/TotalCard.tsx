@@ -1,5 +1,5 @@
 import Link from "next/link";
-import React, { ReactElement } from "react";
+import { ReactElement } from "react";
 
 // create an TotalCard props interface
 export interface TotalCardProps {
@@ -57,14 +57,14 @@ export interface DataProps {
 //     </div>
 //   );
 // };
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
+} from "@/components/ui/card";
 import { formatMoney } from "@/lib/utils";
 
 const TotalCard: (props: TotalCardProps) => ReactElement = ({ data }: TotalCardProps) => {
@@ -96,7 +96,7 @@ const TotalCard: (props: TotalCardProps) => ReactElement = ({ data }: TotalCardP
           </div>
         </div>
         <div className="flex justify-end gap-4.5">
-          <Link href={`/balances/${id}`}>
+          <Link href={`/balances/${id}`} prefetch={false}>
             <Button variant="default">Edit</Button>
           </Link>
         </div>

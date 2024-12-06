@@ -1,9 +1,9 @@
 "use client";
-import "flatpickr/dist/flatpickr.min.css";
-import "@/css/satoshi.css";
+import Loading from "@/app/loading";
+import { Toaster } from "@/components/ui/toaster";
 import "@/css/style.css";
-import React from "react";
-import { Toaster } from "@/components/ui/toaster"
+import "flatpickr/dist/flatpickr.min.css";
+import React, { Suspense } from "react";
 
 export default function RootLayout({
   children,
@@ -14,7 +14,9 @@ export default function RootLayout({
     <html lang="en">
       <body suppressHydrationWarning={true} >
         <div className="dark:bg-boxdark-2 dark:text-bodydark">
-          {children}
+          <Suspense fallback={<Loading />}>
+            {children}
+          </Suspense>
         </div>
         <Toaster />
       </body>

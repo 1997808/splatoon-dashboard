@@ -1,13 +1,13 @@
 "use client";
-import React from "react";
-import Link from "next/link";
-import Image from "next/image";
 import BlankLayout from "@/components/Layouts/BlankLayout";
-import { LockKeyhole, Mail } from "lucide-react";
 import { MyAxios, updateToken } from "@/tools/api";
-import { useRouter } from "next/navigation";
-import { useForm } from "react-hook-form"
 import Cookies from "js-cookie";
+import { LockKeyhole, Mail } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import React from "react";
+import { useForm } from "react-hook-form";
 
 interface IFormInput {
   email: string
@@ -37,7 +37,7 @@ const SignIn: React.FC = () => {
         <div className="flex flex-wrap items-center">
           <div className="hidden w-full xl:block xl:w-1/2">
             <div className="px-24 py-16 text-center">
-              <Link className="mb-5 inline-block" href="/">
+              <Link className="mb-5 inline-block" href="/" prefetch={false}>
                 <Image
                   className="hidden dark:block"
                   src={"/images/logo/logo.svg"}
@@ -120,7 +120,7 @@ const SignIn: React.FC = () => {
                 <div className="mt-6 text-center">
                   <p>
                     Don’t have any account?{" "}
-                    <Link href="/auth/signup" className="text-primary">
+                    <Link href="/auth/signup" className="text-primary" prefetch={false}>
                       Sign Up
                     </Link>
                   </p>

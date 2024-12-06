@@ -1,11 +1,11 @@
 "use client"
-import React, { createContext, useContext, useEffect, useState } from "react";
-import { columns } from "./Column"
-import { DataTable } from "./DataTable"
-import { getAllTransactions } from "@/tools/transaction";
 import { TableMeta } from "@/components/common/TableMeta";
 import { Button } from "@/components/ui/button";
+import { getAllTransactions } from "@/tools/transaction";
 import Link from "next/link";
+import React, { createContext, useContext, useEffect, useState } from "react";
+import { columns } from "./Column";
+import { DataTable } from "./DataTable";
 
 export type ContextProps = {
   transactions: any[];
@@ -59,7 +59,7 @@ const Transactions: React.FC = () => {
         </ul>
 
         <Button asChild>
-          <Link href="/transactions/create">Create new transaction</Link>
+          <Link href="/transactions/create" prefetch={false}>Create new transaction</Link>
         </Button>
       </div>
       <DataTable columns={columns} data={transactions} />

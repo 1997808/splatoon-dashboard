@@ -1,9 +1,9 @@
-import { Metadata } from "next";
-import DefaultLayout from "@/components/Layouts/DefaultLayout";
-import React from "react";
 import BillsTable from "@/components/Bills";
+import DefaultLayout from "@/components/Layouts/DefaultLayout";
 import { Button } from "@/components/ui/button";
+import { Metadata } from "next";
 import Link from "next/link";
+import React from "react";
 
 export const metadata: Metadata = {
   title: "PineStats",
@@ -16,7 +16,7 @@ const BillsPage: React.FC = () => {
       <div className="mb-4 flex justify-between">
         <div></div>
         <Button asChild>
-          <Link href="/bills/create">Create new bill</Link>
+          <Link href="/bills/create" prefetch={false}>Create new bill</Link>
         </Button>
       </div>
       <BillsTable />

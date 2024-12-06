@@ -1,9 +1,9 @@
-import React from "react";
-import { EmblaOptionsType } from 'embla-carousel'
-import Autoplay from 'embla-carousel-autoplay'
-import useEmblaCarousel from 'embla-carousel-react'
-import Link from "next/link";
 import { formatMoney } from "@/lib/utils";
+import { EmblaOptionsType } from 'embla-carousel';
+import Autoplay from 'embla-carousel-autoplay';
+import useEmblaCarousel from 'embla-carousel-react';
+import Link from "next/link";
+import React from "react";
 import { useOverviewContext } from ".";
 
 type PropType = {
@@ -29,7 +29,7 @@ const TotalCard = () => {
         <h3 className="font-bold text-black dark:text-white text-lg">
           {formatMoney(total) || "N/A"}
         </h3>
-        <Link href="/balances">
+        <Link href="/balances" prefetch={false}>
           <p className="text-black dark:text-white text-sm">All Balances</p>
         </Link>
       </div>

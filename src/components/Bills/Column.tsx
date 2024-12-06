@@ -1,10 +1,5 @@
 "use client"
 
-import { ColumnDef } from "@tanstack/react-table"
-import { formatMoney } from "@/lib/utils"
-import dayjs from "dayjs"
-import Image from "next/image"
-import { MoreHorizontal } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
@@ -14,6 +9,11 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { formatMoney } from "@/lib/utils"
+import { ColumnDef } from "@tanstack/react-table"
+import dayjs from "dayjs"
+import { MoreHorizontal } from "lucide-react"
+import Image from "next/image"
 import Link from "next/link"
 
 // This type is used to define the shape of our data.
@@ -116,7 +116,7 @@ export const columns: ColumnDef<Payment>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem>
-              <Link href={`/bills/${id}`} className="w-full h-auto">
+              <Link href={`/bills/${id}`} className="w-full h-auto" prefetch={false}>
                 Edit
               </Link>
             </DropdownMenuItem>

@@ -1,9 +1,9 @@
-import React from "react";
-import Link from "next/link";
-import Image from "next/image";
-import { Metadata } from "next";
 import BlankLayout from "@/components/Layouts/BlankLayout";
-import { Chrome, LockKeyhole, Mail, User } from "lucide-react";
+import { LockKeyhole, Mail, User } from "lucide-react";
+import { Metadata } from "next";
+import Image from "next/image";
+import Link from "next/link";
+import React from "react";
 
 export const metadata: Metadata = {
   title: "Sign Up",
@@ -18,7 +18,7 @@ const SignUp: React.FC = () => {
         <div className="flex flex-wrap items-center">
           <div className="hidden w-full xl:block xl:w-1/2">
             <div className="px-24 py-16 text-center">
-              <Link className="mb-5 inline-block" href="/">
+              <Link className="mb-5 inline-block" href="/" prefetch={false}>
                 <Image
                   className="hidden dark:block"
                   src={"/images/logo/logo.svg"}
@@ -118,7 +118,7 @@ const SignUp: React.FC = () => {
                 <div className="mt-6 text-center">
                   <p>
                     Already have an account?{" "}
-                    <Link href="/auth/signin" className="text-primary">
+                    <Link href="/auth/signin" className="text-primary" prefetch={false}>
                       Sign in
                     </Link>
                   </p>

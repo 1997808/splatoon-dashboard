@@ -1,8 +1,8 @@
 'use client'
 
 import { ApexOptions } from "apexcharts";
-import React, { useState } from "react";
 import dynamic from "next/dynamic";
+import React, { useState } from "react";
 const ReactApexChart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
 interface ChartThreeState {
@@ -11,7 +11,7 @@ interface ChartThreeState {
 
 const options: ApexOptions = {
   chart: {
-    fontFamily: "Satoshi, sans-serif",
+    fontFamily: "Arial, sans-serif",
     type: "donut",
   },
   colors: ["#3C50E0", "#6577F3", "#8FD0EF", "#0FADCF"],

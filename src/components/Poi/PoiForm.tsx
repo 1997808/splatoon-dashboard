@@ -44,7 +44,7 @@ const PoiForm: React.FC = () => {
 
   return (
     <>
-      <Card className="xl:max-w-screen-md w-full h-screen mx-auto rounded-lg border border-stroke bg-white shadow-lg dark:border-strokedark dark:bg-boxdark">
+      <Card className="w-full h-screen mx-auto rounded-none border border-stroke bg-white shadow-lg dark:border-strokedark dark:bg-boxdark">
         <CardContent className="flex flex-col h-full gap-4 pt-6">
           <div className="flex justify-between items-start">
             <div className="flex gap-1">

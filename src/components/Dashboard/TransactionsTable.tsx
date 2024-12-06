@@ -1,14 +1,14 @@
-import { HandCoins, ShoppingCart } from "lucide-react";
-import Link from "next/link";
-import { useOverviewContext } from ".";
-import { formatMoney } from "@/lib/utils";
-import dayjs from "dayjs";
 import {
   Table,
   TableBody,
   TableCell,
   TableRow,
-} from "@/components/ui/table"
+} from "@/components/ui/table";
+import { formatMoney } from "@/lib/utils";
+import dayjs from "dayjs";
+import { HandCoins, ShoppingCart } from "lucide-react";
+import Link from "next/link";
+import { useOverviewContext } from ".";
 
 const TransactionsTable = () => {
   const { transactions } = useOverviewContext()
@@ -19,7 +19,7 @@ const TransactionsTable = () => {
         <h3 className="font-bold text-black dark:text-white text-lg">
           {"Recent transaction"}
         </h3>
-        <Link href="/transactions">
+        <Link href="/transactions" prefetch={false}>
           <p className="text-black dark:text-white text-sm">View All</p>
         </Link>
       </div>

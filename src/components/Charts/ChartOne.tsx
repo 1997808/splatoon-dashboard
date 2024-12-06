@@ -1,7 +1,7 @@
 'use client'
 import { ApexOptions } from "apexcharts";
-import React, { useState } from "react";
 import dynamic from "next/dynamic";
+import React, { useState } from "react";
 const ReactApexChart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
 const options: ApexOptions = {
@@ -12,7 +12,7 @@ const options: ApexOptions = {
   },
   colors: ["#3C50E0", "#80CAEE"],
   chart: {
-    fontFamily: "Satoshi, sans-serif",
+    fontFamily: "Arial, sans-serif",
     height: 335,
     type: "area",
     dropShadow: {
