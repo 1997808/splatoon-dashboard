@@ -108,6 +108,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
             <li>
               <Link
                 href="/"
+                prefetch={false}
                 className={`group relative flex items-center gap-2.5 rounded-lg px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${(pathname === "/" ||
                   pathname.includes("dashboard")) &&
                   "bg-graydark dark:bg-meta-4"
@@ -121,6 +122,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
             <li>
               <Link
                 href="/balances"
+                prefetch={false}
                 className={`group relative flex items-center gap-2.5 rounded-lg px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes("balances") && "bg-graydark dark:bg-meta-4"
                   }`}
               >
@@ -132,6 +134,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
             <li>
               <Link
                 href="/poi"
+                prefetch={false}
                 className={`group relative flex items-center gap-2.5 rounded-lg px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes("poi") && "bg-graydark dark:bg-meta-4"
                   }`}
               >
@@ -143,6 +146,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
             <li>
               <Link
                 href="/transactions"
+                prefetch={false}
                 className={`group relative flex items-center gap-2.5 rounded-lg px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes("transactions") && "bg-graydark dark:bg-meta-4"
                   }`}
               >
@@ -154,6 +158,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
             <li>
               <Link
                 href="/bills"
+                prefetch={false}
                 className={`group relative flex items-center gap-2.5 rounded-lg px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes("bills") && "bg-graydark dark:bg-meta-4"
                   }`}
               >
@@ -165,6 +170,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
             <li>
               <Link
                 href="/expenses"
+                prefetch={false}
                 className={`group relative flex items-center gap-2.5 rounded-lg px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes("expenses") && "bg-graydark dark:bg-meta-4"
                   }`}
               >
@@ -176,6 +182,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
             <li>
               <Link
                 href="/goal"
+                prefetch={false}
                 className={`group relative flex items-center gap-2.5 rounded-lg px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes("goal") && "bg-graydark dark:bg-meta-4"
                   }`}
               >
@@ -187,6 +194,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
             <li>
               <Link
                 href="/taxes"
+                prefetch={false}
                 className={`group relative flex items-center gap-2.5 rounded-lg px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes("tax") && "bg-graydark dark:bg-meta-4"
                   }`}
               >
@@ -198,6 +206,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
             <li>
               <Link
                 href="/loans"
+                prefetch={false}
                 className={`group relative flex items-center gap-2.5 rounded-lg px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes("loan") && "bg-graydark dark:bg-meta-4"
                   }`}
               >
@@ -210,6 +219,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
             <li>
               <Link
                 href="/settings"
+                prefetch={false}
                 className={`group relative flex items-center gap-2.5 rounded-lg px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes("settings") &&
                   "bg-graydark dark:bg-meta-4"
                   }`}

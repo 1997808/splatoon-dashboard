@@ -1,9 +1,9 @@
 "use client";
-import Loading from "@/app/loading";
 import { Toaster } from "@/components/ui/toaster";
 import "@/css/style.css";
 import "flatpickr/dist/flatpickr.min.css";
-import React, { Suspense } from "react";
+import NextTopLoader from 'nextjs-toploader';
+import React from "react";
 
 export default function RootLayout({
   children,
@@ -13,10 +13,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body suppressHydrationWarning={true} >
+        <NextTopLoader />
         <div className="dark:bg-boxdark-2 dark:text-bodydark">
-          <Suspense fallback={<Loading />}>
-            {children}
-          </Suspense>
+          {children}
         </div>
         <Toaster />
       </body>
